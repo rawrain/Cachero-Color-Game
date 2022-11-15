@@ -32,7 +32,12 @@ namespace Cachero_Color_Game
             int h = 5;
 
             List<Color> listOfColors = new List<Color>();
-            listOfColors.Add(Color.FromRgb(0, 0, 255));
+            listOfColors.Add(Color.FromRgb(0, 0, 255)); //Color of Blue
+            listOfColors.Add(Color.FromRgb(0, 255, 0)); //Color of Green
+            listOfColors.Add(Color.FromRgb(255, 255, 0)); //Color of Yellow
+            listOfColors.Add(Color.FromRgb(255, 0, 0)); //Color of Red
+            listOfColors.Add(Color.FromRgb(255, 140, 0)); //Color of Orange
+            listOfColors.Add(Color.FromRgb(255, 0, 255)); // Color of Purple
 
             gameColorDice = new Rectangle[3];
 
@@ -44,7 +49,7 @@ namespace Cachero_Color_Game
                 dice.Width = 60;
                 dice.Height = 60;
                 dice.Margin = new Thickness(h,10,0,0);
-                dice.Fill = new SolidColorBrush(listOfColors.ElementAt(0));
+                dice.Fill = new SolidColorBrush(listOfColors.ElementAt(5));
                 gameColorDice[i] = dice;
                 mainGrid.Children.Add(gameColorDice[i]);
 

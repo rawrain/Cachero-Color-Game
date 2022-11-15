@@ -7,6 +7,12 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid x:Name="mainGrid">
-        
+        <Rectangle x:Name="redHolRect" Margin="24,210,745,194" Fill="Red" Stroke="Black"/>
+        <Rectangle x:Name="orangeHolRect" Margin="24,245,745,159" Fill="DarkOrange" Stroke="Black"/>
+        <Rectangle x:Name="yellowHolRect" Margin="24,280,745,124" Fill="Yellow" Stroke="Black"/>
+        <Rectangle x:Name="greenHolRect" Margin="24,315,745,89" Fill="Lime" Stroke="Black"/>
+        <Rectangle x:Name="blueHolRect" Margin="24,350,745,54" Fill="Blue" Stroke="Black"/>
+        <Rectangle x:Name="violetHolRect" Margin="24,385,745,19" Fill="Magenta" Stroke="Black"/>
+
     </Grid>
 </Window>
