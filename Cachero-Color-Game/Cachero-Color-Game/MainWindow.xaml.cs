@@ -20,9 +20,37 @@ namespace Cachero_Color_Game
     /// </summary>
     public partial class MainWindow : Window
     {
+        private Rectangle[] gameColorDice = new Rectangle[] { }; 
+
         public MainWindow()
         {
             InitializeComponent();
+            initDices();
+        }
+        private void initDices() 
+        {
+            int h = 5;
+
+            List<Color> listOfColors = new List<Color>();
+            listOfColors.Add(Color.FromRgb(0, 0, 255));
+
+            gameColorDice = new Rectangle[3];
+
+            for (int i = 0; i < gameColorDice.Length; i++) 
+            {
+                Rectangle dice = new Rectangle();
+                dice.VerticalAlignment = VerticalAlignment.Top;
+                dice.HorizontalAlignment = HorizontalAlignment.Left;
+                dice.Width = 60;
+                dice.Height = 60;
+                dice.Margin = new Thickness(h,10,0,0);
+                dice.Fill = new SolidColorBrush(listOfColors.ElementAt(0));
+                gameColorDice[i] = dice;
+                mainGrid.Children.Add(gameColorDice[i]);
+
+                h += 5 + (int)dice.Width;
+            }
+
         }
     }
 }
