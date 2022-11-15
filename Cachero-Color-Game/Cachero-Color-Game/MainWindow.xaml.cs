@@ -22,6 +22,8 @@ namespace Cachero_Color_Game
     {
         private Label[] gameColorDice = new Label[] { }; 
         private Grid gameDiceGrid = new Grid();
+        private Color[] listOfColors = new Color[6];
+        private int[] selectedColors = new int[] { };
 
         public MainWindow()
         {
@@ -32,14 +34,6 @@ namespace Cachero_Color_Game
         {
             initDiceGrid();
             int h = 5;
-
-            List<Color> listOfColors = new List<Color>();
-            listOfColors.Add(Color.FromRgb(0, 0, 255)); //Color of Blue
-            listOfColors.Add(Color.FromRgb(0, 255, 0)); //Color of Green
-            listOfColors.Add(Color.FromRgb(255, 255, 0)); //Color of Yellow
-            listOfColors.Add(Color.FromRgb(255, 0, 0)); //Color of Red
-            listOfColors.Add(Color.FromRgb(255, 140, 0)); //Color of Orange
-            listOfColors.Add(Color.FromRgb(255, 0, 255)); // Color of Purple
 
             gameColorDice = new Label[3];
 
@@ -85,5 +79,68 @@ namespace Cachero_Color_Game
             gameDiceGrid.Margin = new Thickness(350,200,0,0);
             mainGrid.Children.Add(gameDiceGrid);
         }
+
+        private  async void generateColor() 
+        {
+            
+            selectedColors = new int[3];
+            Random random= new Random();
+            int colorIndex = 0;
+            int diceCounter = 0;
+            int rollCounter = 0;
+
+            while (diceCounter < 3) 
+            {
+                while (rollCounter < 10) 
+                {
+                    await Task.Delay(50);
+                    colorIndex = random.Next(1000000);
+                    colorIndex %= 100000;
+                    colorIndex %= 10000;
+                    colorIndex %= 100;
+                    colorIndex %= 6;
+
+                    gameColorDice[diceCounter].Background = new SolidColorBrush(listOfColors[colorIndex]);              
+                    rollCounter++;              
+                }
+                selectedColors[diceCounter] = colorIndex; 
+                colorIndex = 0;
+                rollCounter = 0;
+                diceCounter++;
+            }
+
+            getColorArrValues(selectedColors);
+
+        }
+
+        private void addElColorList() 
+        {
+            listOfColors = new Color[6];
+            listOfColors[0] = Color.FromRgb(0, 0, 255); //Color of Blue
+            listOfColors[1] = Color.FromRgb(0, 255, 0); //Color of Green
+            listOfColors[2] = Color.FromRgb(255, 255, 0); //Color of Yellow
+            listOfColors[3] = Color.FromRgb(255, 0, 0); //Color of Red
+            listOfColors[4] = Color.FromRgb(255, 140, 0); //Color of Orange
+            listOfColors[5] = Color.FromRgb(255, 0, 255); // Color of Purple
+        }
+
+        private void confirmWagerBtn_Click(object sender, RoutedEventArgs e)
+        {
+            for (int i = 0; i < gameColorDice.Length; i++)
+                gameColorDice[i].Background = new SolidColorBrush(Colors.Transparent);          
+
+            addElColorList();
+            generateColor();     
+              
+        }
+
+        private void getColorArrValues(int[] colorArr) 
+        {
+            for (int i = 0; i < colorArr.Length; i++) 
+            {
+                MessageBox.Show(colorArr[i].ToString());
+            }
+        }
+       
     }
 }
