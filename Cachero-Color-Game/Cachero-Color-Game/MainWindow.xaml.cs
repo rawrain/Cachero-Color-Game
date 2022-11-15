@@ -126,19 +126,47 @@ namespace Cachero_Color_Game
 
         private void confirmWagerBtn_Click(object sender, RoutedEventArgs e)
         {
-            for (int i = 0; i < gameColorDice.Length; i++)
-                gameColorDice[i].Background = new SolidColorBrush(Colors.Transparent);          
+            var confirm = MessageBox.Show("Do you want to proceed with this action?", "Confirmation", MessageBoxButton.YesNo);
 
-            addElColorList();
-            generateColor();     
-              
+            if (confirm == MessageBoxResult.Yes)
+            {
+                for (int i = 0; i < gameColorDice.Length; i++)
+                    gameColorDice[i].Background = new SolidColorBrush(Colors.Transparent);
+                addElColorList();
+                generateColor();
+            }
+            else
+            {
+                MessageBox.Show("Cancelled");
+            }   
         }
 
         private void getColorArrValues(int[] colorArr) 
         {
             for (int i = 0; i < colorArr.Length; i++) 
             {
-                MessageBox.Show(colorArr[i].ToString());
+                switch (colorArr[i]) 
+                {
+                    case 0:
+                        MessageBox.Show($"Color {i + 1}: Blue");
+                        break;
+                    case 1:
+                        MessageBox.Show($"Color {i + 1}: Green");
+                        break;
+                    case 2:
+                        MessageBox.Show($"Color {i + 1}: Yellow");
+                        break;
+                    case 3:
+                        MessageBox.Show($"Color {i + 1}: Red");
+                        break;
+                    case 4:
+                        MessageBox.Show($"Color {i + 1}: Orange");
+                        break;
+                    case 5:
+                        MessageBox.Show($"Color {i + 1}: Purple");
+                        break;
+
+                }
             }
         }
        
