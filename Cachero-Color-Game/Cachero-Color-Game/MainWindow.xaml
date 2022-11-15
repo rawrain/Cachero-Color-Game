@@ -5,14 +5,23 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Cachero_Color_Game"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800" SizeToContent="WidthAndHeight">
     <Grid x:Name="mainGrid">
-        <Rectangle x:Name="redHolRect" Margin="24,210,745,194" Fill="Red" Stroke="Black"/>
-        <Rectangle x:Name="orangeHolRect" Margin="24,245,745,159" Fill="DarkOrange" Stroke="Black"/>
-        <Rectangle x:Name="yellowHolRect" Margin="24,280,745,124" Fill="Yellow" Stroke="Black"/>
-        <Rectangle x:Name="greenHolRect" Margin="24,315,745,89" Fill="Lime" Stroke="Black"/>
-        <Rectangle x:Name="blueHolRect" Margin="24,350,745,54" Fill="Blue" Stroke="Black"/>
-        <Rectangle x:Name="violetHolRect" Margin="24,385,745,19" Fill="Magenta" Stroke="Black"/>
+        <Rectangle x:Name="redHolRect" Fill="Red" Stroke="Black" Margin="28,181,741,223" Width="31" Height="31"/>
+        <Rectangle x:Name="orangeHolRect" Fill="DarkOrange" Stroke="Black" Margin="28,216,741,188"/>
+        <Rectangle x:Name="yellowHolRect" Fill="Yellow" Stroke="Black" Margin="28,251,741,153"/>
+        <Rectangle x:Name="greenHolRect" Fill="Lime" Stroke="Black" Margin="28,286,741,118"/>
+        <Rectangle x:Name="blueHolRect" Fill="Blue" Stroke="Black" Margin="28,321,741,83"/>
+        <Rectangle x:Name="violetHolRect" Margin="28,356,741,48" Fill="Magenta" Stroke="Black"/>
+        <TextBox x:Name="redWagerTbx" HorizontalAlignment="Left" Margin="77,187,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="70"/>
+        <TextBox x:Name="orangeWagerTbx" HorizontalAlignment="Left" Margin="77,222,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="70"/>
+        <TextBox x:Name="yellowWagerTbx" HorizontalAlignment="Left" Margin="77,257,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="70"/>
+        <TextBox x:Name="greenWagerTbx" HorizontalAlignment="Left" Margin="77,292,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="70"/>
+        <TextBox x:Name="blueWagerTbx" HorizontalAlignment="Left" Margin="77,327,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="70"/>
+        <TextBox x:Name="purpleWagerTbx" HorizontalAlignment="Left" Margin="77,362,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="70"/>
+        <Label x:Name="wagerHeaderLbl" Content="Place Wager Here:" HorizontalAlignment="Left" VerticalAlignment="Top" Width="119" Margin="28,142,0,0"/>
+
+        <Button x:Name="confirmWagerBtn" Content="Place Wager" HorizontalAlignment="Left" Margin="28,404,0,0" VerticalAlignment="Top" Width="83"/>
 
     </Grid>
 </Window>
