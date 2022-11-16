@@ -30,6 +30,7 @@ namespace Cachero_Color_Game
             InitializeComponent();
             initDices();
         }
+
         private void initDices() 
         {
             initDiceGrid();
@@ -91,7 +92,7 @@ namespace Cachero_Color_Game
 
             while (diceCounter < 3) 
             {
-                while (rollCounter < 10) 
+                while (rollCounter < 20) 
                 {
                     await Task.Delay(50);
                     colorIndex = random.Next(1000000);
