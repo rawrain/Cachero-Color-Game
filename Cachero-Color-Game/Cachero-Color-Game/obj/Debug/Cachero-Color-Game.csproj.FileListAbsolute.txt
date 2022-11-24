@@ -14,3 +14,19 @@ C:\Users\julet\Desktop\Workspace\c# Apps\Cachero-Color-Game\Cachero-Color-Game\C
 C:\Users\julet\Desktop\Workspace\c# Apps\Cachero-Color-Game\Cachero-Color-Game\Cachero-Color-Game\obj\Debug\Cachero-Color-Game.csproj.CoreCompileInputs.cache
 C:\Users\julet\Desktop\Workspace\c# Apps\Cachero-Color-Game\Cachero-Color-Game\Cachero-Color-Game\obj\Debug\Cachero-Color-Game.exe
 C:\Users\julet\Desktop\Workspace\c# Apps\Cachero-Color-Game\Cachero-Color-Game\Cachero-Color-Game\obj\Debug\Cachero-Color-Game.pdb
+C:\Users\Admin\Desktop\Cachero-Color-Game\Cachero-Color-Game\Cachero-Color-Game\bin\Debug\Cachero-Color-Game.exe.config
+C:\Users\Admin\Desktop\Cachero-Color-Game\Cachero-Color-Game\Cachero-Color-Game\bin\Debug\Cachero-Color-Game.exe
+C:\Users\Admin\Desktop\Cachero-Color-Game\Cachero-Color-Game\Cachero-Color-Game\bin\Debug\Cachero-Color-Game.pdb
+C:\Users\Admin\Desktop\Cachero-Color-Game\Cachero-Color-Game\Cachero-Color-Game\obj\Debug\Cachero-Color-Game.csproj.AssemblyReference.cache
+C:\Users\Admin\Desktop\Cachero-Color-Game\Cachero-Color-Game\Cachero-Color-Game\obj\Debug\Cachero-Color-Game.csproj.SuggestedBindingRedirects.cache
+C:\Users\Admin\Desktop\Cachero-Color-Game\Cachero-Color-Game\Cachero-Color-Game\obj\Debug\MainWindow.g.cs
+C:\Users\Admin\Desktop\Cachero-Color-Game\Cachero-Color-Game\Cachero-Color-Game\obj\Debug\App.g.cs
+C:\Users\Admin\Desktop\Cachero-Color-Game\Cachero-Color-Game\Cachero-Color-Game\obj\Debug\Cachero-Color-Game_MarkupCompile.cache
+C:\Users\Admin\Desktop\Cachero-Color-Game\Cachero-Color-Game\Cachero-Color-Game\obj\Debug\Cachero-Color-Game_MarkupCompile.lref
+C:\Users\Admin\Desktop\Cachero-Color-Game\Cachero-Color-Game\Cachero-Color-Game\obj\Debug\MainWindow.baml
+C:\Users\Admin\Desktop\Cachero-Color-Game\Cachero-Color-Game\Cachero-Color-Game\obj\Debug\Cachero-Color-Game.g.resources
+C:\Users\Admin\Desktop\Cachero-Color-Game\Cachero-Color-Game\Cachero-Color-Game\obj\Debug\Cachero_Color_Game.Properties.Resources.resources
+C:\Users\Admin\Desktop\Cachero-Color-Game\Cachero-Color-Game\Cachero-Color-Game\obj\Debug\Cachero-Color-Game.csproj.GenerateResource.cache
+C:\Users\Admin\Desktop\Cachero-Color-Game\Cachero-Color-Game\Cachero-Color-Game\obj\Debug\Cachero-Color-Game.csproj.CoreCompileInputs.cache
+C:\Users\Admin\Desktop\Cachero-Color-Game\Cachero-Color-Game\Cachero-Color-Game\obj\Debug\Cachero-Color-Game.exe
+C:\Users\Admin\Desktop\Cachero-Color-Game\Cachero-Color-Game\Cachero-Color-Game\obj\Debug\Cachero-Color-Game.pdb

@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Group2-RoyalCasino" Class="AmazonDBDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=testdatabase.ceeszjwt7h7h.ap-southeast-1.rds.amazonaws.com;Initial Catalog=Group2-RoyalCasino;User ID=admin;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False" SettingsObjectName="Cachero_Color_Game.Properties.Settings" SettingsPropertyName="Group2_RoyalCasinoConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.table_Customers" Member="table_Customers">
+    <Type Name="table_Customer">
+      <Column Name="Customer_ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Customer_Username" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Customer_Password" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Customer_FirstName" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Customer_MiddleName" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Customer_LastName" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="ID_ID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Customer_IDNumber" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Customer_PhoneNumber" Type="System.String" DbType="VarChar(11) NOT NULL" CanBeNull="false" />
+      <Column Name="Customer_CurrentBalance" Type="System.Decimal" DbType="Decimal(19,4) NOT NULL" CanBeNull="false" />
+      <Column Name="Customer_TotalSpent" Type="System.Decimal" DbType="Decimal(19,4) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+</Database>

@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="AmazonDB">
+  <DataContextMoniker Name="/AmazonDBDataContext" />
+  <nestedChildShapes>
+    <classShape Id="b83721b2-2b6a-410f-af55-943aa48b5b0d" absoluteBounds="1.25, 2.5, 2, 2.9247054036458331">
+      <DataClassMoniker Name="/AmazonDBDataContext/table_Customer" />
+      <nestedChildShapes>
+        <elementListCompartment Id="baca109d-d182-4bd0-ba36-6894b9c6ee30" absoluteBounds="1.2650000000000001, 2.96, 1.9700000000000002, 2.364705403645833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

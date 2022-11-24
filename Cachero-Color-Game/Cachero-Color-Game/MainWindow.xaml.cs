@@ -20,10 +20,12 @@ namespace Cachero_Color_Game
     /// </summary>
     public partial class MainWindow : Window
     {
+        private AmazonDBDataContext amazonDB = new AmazonDBDataContext(Properties.Settings.Default.Group2_RoyalCasinoConnectionString);
         private Label[] gameColorDice = new Label[] { }; 
         private Grid gameDiceGrid = new Grid();
         private Color[] listOfColors = new Color[6];
         private int[] selectedColors = new int[] { };
+        private int nextcustomerID = 0;
 
         public MainWindow()
         {
@@ -170,6 +172,52 @@ namespace Cachero_Color_Game
                 }
             }
         }
-       
+
+
+        private void login()
+        {
+            var allCustomers = (from b in amazonDB.table_Customers
+                                where b.Customer_Username == txtloginUsername.Text
+                                select b).ToList();
+
+            var customerLogin = (from a in amazonDB.table_Customers
+                                 where a.Customer_Username == txtloginUsername.Text
+                                 select a).FirstOrDefault();
+
+            string[] customers = new string[nextcustomerID + 1];
+            string password = "";
+
+            int y = 0;
+
+            foreach (var customer in allCustomers)
+            {
+                customers[y] = customer.Customer_Username.ToString();
+                y++;
+            }
+
+            if (customers.Contains(txtloginUsername.Text))
+            {
+                lblloginstatus.Content = "Username Found";
+                password = customerLogin.Customer_Password.ToString();
+
+                if (txtloginPassword.Password == password)
+                {
+                    lblloginstatus.Content = "Login Success";
+                }
+                else
+                {
+                    lblloginstatus.Content = "Incorrect Password";
+                }
+            }
+            else
+            {
+                lblloginstatus.Content = "Username Not Found";
+            }
+        }
+
+        private void lginBtn_Click(object sender, RoutedEventArgs e)
+        {
+            login();
+        }
     }
 }

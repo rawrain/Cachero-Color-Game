@@ -22,9 +22,12 @@
         <Label x:Name="wagerHeaderLbl" Content="Place Wager Here:" HorizontalAlignment="Left" VerticalAlignment="Top" Width="119" Margin="28,142,0,0"/>
 
         <Button x:Name="confirmWagerBtn" Content="Place Wager" HorizontalAlignment="Left" Margin="28,404,0,0" VerticalAlignment="Top" Width="83" Click="confirmWagerBtn_Click"/>
-        <Button x:Name="lginBtn" Content="Log In" HorizontalAlignment="Left" Margin="28,18,0,0" VerticalAlignment="Top" Width="60"/>
+        <Button x:Name="lginBtn" Content="Log In" HorizontalAlignment="Left" Margin="321,28,0,0" VerticalAlignment="Top" Width="60" Click="lginBtn_Click"/>
         <Label x:Name="uNameLbl" Content="Player Name: " HorizontalAlignment="Left" Margin="28,59,0,0" VerticalAlignment="Top"/>
         <Label x:Name="uBalanceLbl" Content="Player Balance: " HorizontalAlignment="Left" Margin="28,99,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtloginUsername" HorizontalAlignment="Left" Margin="35,30,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <PasswordBox x:Name="txtloginPassword" HorizontalAlignment="Left" Margin="179,30,0,0" VerticalAlignment="Top" Width="120"/>
+        <Label x:Name="lblloginstatus" Content="Label" HorizontalAlignment="Left" Margin="417,39,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>
