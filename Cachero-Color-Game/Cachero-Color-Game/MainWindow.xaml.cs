@@ -26,6 +26,7 @@ namespace Cachero_Color_Game
         private Color[] listOfColors = new Color[6];
         private int[] selectedColors = new int[] { };
         private int nextcustomerID = 0;
+        private Dictionary<string, int> bettedColors =new Dictionary<string, int>();
 
         public MainWindow()
         {
@@ -130,9 +131,10 @@ namespace Cachero_Color_Game
         private void confirmWagerBtn_Click(object sender, RoutedEventArgs e)
         {
             var confirm = MessageBox.Show("Do you want to proceed with this action?", "Confirmation", MessageBoxButton.YesNo);
-
+            
             if (confirm == MessageBoxResult.Yes)
             {
+                getBettedColors();
                 for (int i = 0; i < gameColorDice.Length; i++)
                     gameColorDice[i].Background = new SolidColorBrush(Colors.Transparent);
                 addElColorList();
@@ -173,6 +175,42 @@ namespace Cachero_Color_Game
             }
         }
 
+        private void getBettedColors() 
+        {
+            bettedColors = new Dictionary<string, int>();
+            int redWager = int.Parse(redWagerTbx.Text);
+            int orangeWager = int.Parse(orangeWagerTbx.Text);
+            int yellowWager = int.Parse(yellowWagerTbx.Text);
+            int greenWager = int.Parse(greenWagerTbx.Text);
+            int blueWager = int.Parse(blueWagerTbx.Text);
+            int purpleWager = int.Parse(purpleWagerTbx.Text);
+
+            if (redWager != 0 && redWager > 0) 
+            {
+                bettedColors.Add("red",redWager);
+            }
+            if (orangeWager != 0 && orangeWager > 0) 
+            {
+                bettedColors.Add("orange", orangeWager);
+            }
+            if (yellowWager != 0 && yellowWager > 0)
+            {
+                bettedColors.Add("yellow", yellowWager);
+            }
+            if (greenWager != 0 && greenWager > 0 )
+            {
+                bettedColors.Add("green", greenWager);
+            }
+            if (blueWager != 0 && blueWager > 0 )
+            {
+                bettedColors.Add("blue", blueWager);
+            }
+            if (purpleWager != 0 && purpleWager > 0 ) 
+            {
+                bettedColors.Add("purple", purpleWager);
+            }
+          
+        }
 
         private void login()
         {
