@@ -248,6 +248,9 @@ namespace Cachero_Color_Game
             uNameStatusLbl.Content = "Username Status : ";
             uPasswordStatuslbl.Content = "Password Status : ";
 
+            decimal playerbalance = 0;
+            string playerName = string.Empty;
+
             var allCustomers = (from b in amazonDB.table_Customers
                                 where b.Customer_Username == txtloginUsername.Text
                                 select b).ToList();
@@ -289,6 +292,11 @@ namespace Cachero_Color_Game
                     orangeWagerTbx.IsEnabled = true;
                     txtloginUsername.IsEnabled = false;
                     txtloginPassword.IsEnabled = false;
+                    playerbalance = decimal.Parse(customerLogin.Customer_CurrentBalance.ToString());
+                    playerName = customerLogin.Customer_FirstName.ToString();
+
+                    uBalanceLbl.Content += playerbalance.ToString();
+                    uNameLbl.Content += playerName;
                 }
                 else
                 {
@@ -305,7 +313,43 @@ namespace Cachero_Color_Game
 
         private void lginBtn_Click(object sender, RoutedEventArgs e)
         {
-            login();
+            switch (lginBtn.Content) 
+            {
+                case "Log In":
+                    login();
+                    break;
+
+                case "Log Out":
+                    logout();
+                    break;
+            }          
+        }
+
+        private void logout() 
+        {
+            string message = "Do you want to proceed with this action?";
+            string caption = "LOGGING OUT";
+            var confirm = MessageBox.Show(message, caption, MessageBoxButton.YesNo);
+
+            if (confirm == MessageBoxResult.Yes) 
+            {
+                txtloginUsername.IsEnabled = true;
+                txtloginPassword.IsEnabled = true;
+                confirmWagerBtn.IsEnabled = false;
+                blueWagerTbx.IsEnabled = false;
+                yellowWagerTbx.IsEnabled = false;
+                redWagerTbx.IsEnabled = false;
+                greenWagerTbx.IsEnabled = false;
+                blueWagerTbx.IsEnabled = false;
+                purpleWagerTbx.IsEnabled = false;
+                orangeWagerTbx.IsEnabled = false;
+                lblloginstatus.Content = "Log In Status : ";
+                uNameStatusLbl.Content = "Username Status : ";
+                uPasswordStatuslbl.Content = "Password Status : ";
+                uNameLbl.Content = "Player Name : ";
+                uBalanceLbl.Content = "Player Balance : ";
+                lginBtn.Content = "Log In";
+            }    
         }
 
         private void getWinnerColors(Dictionary<string, int> matchedColors) 
