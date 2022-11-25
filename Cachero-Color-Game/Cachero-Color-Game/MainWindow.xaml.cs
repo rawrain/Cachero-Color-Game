@@ -113,7 +113,7 @@ namespace Cachero_Color_Game
 
         private  async void generateColor() 
         {
-            
+            confirmWagerBtn.IsEnabled = false;
             selectedColors = new int[3];
             Random random= new Random();
             int colorIndex = 0;
@@ -142,6 +142,7 @@ namespace Cachero_Color_Game
 
             getColorMatches(selectedColors);
             getWinnerColors(matchedColors);
+            confirmWagerBtn.IsEnabled = true;
 
         }
 
@@ -430,6 +431,8 @@ namespace Cachero_Color_Game
             int greenWager = int.Parse(greenWagerTbx.Text);
             int blueWager = int.Parse(blueWagerTbx.Text);
             int purpleWager = int.Parse(purpleWagerTbx.Text);
+            int totalWagerValue = 0;
+            decimal playerBalance = decimal.Parse(uBalanceLbl.Content.ToString().Split(':')[1]);
 
             if (redWager != 0 && redWager > 0) 
             {
@@ -455,6 +458,14 @@ namespace Cachero_Color_Game
             {
                 bettedColors.Add("purple", purpleWager);
             }
+
+            for (int i = 0; i < bettedColors.Count; i++) 
+            {
+                totalWagerValue += bettedColors.Values.ElementAt(i);
+            }
+
+            uBalanceLbl.Content = $"Player Balance : {playerBalance - totalWagerValue}";
+            MessageBox.Show($"You wagered {totalWagerValue}");
           
         }
 
@@ -577,6 +588,8 @@ namespace Cachero_Color_Game
             //blue = x3
             //purple = x3
 
+            decimal playerBalance = decimal.Parse(uBalanceLbl.Content.ToString().Split(':')[1]);
+
             int totalWinnings = 0;
 
             for (int i = 0; i < matchedColors.Count; i++) 
@@ -605,7 +618,8 @@ namespace Cachero_Color_Game
 
             }
 
-            MessageBox.Show($"Your Total winnings are: {totalWinnings}");
+            uBalanceLbl.Content = $"Player Balance : {playerBalance + totalWinnings}";
+            MessageBox.Show($"You won P {totalWinnings}");
         }
     }
 }
