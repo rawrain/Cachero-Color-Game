@@ -27,6 +27,8 @@ namespace Cachero_Color_Game
         private int[] selectedColors = new int[] { };
         private int nextcustomerID = 0;
         private Dictionary<string, int> bettedColors =new Dictionary<string, int>();
+        private Dictionary<string, int> matchedColors = new Dictionary<string, int>();
+        private List<string> prizeColors = new List<string>();
 
         public MainWindow()
         {
@@ -113,7 +115,8 @@ namespace Cachero_Color_Game
                 diceCounter++;
             }
 
-            getColorArrValues(selectedColors);
+            getColorMatches(selectedColors);
+            getWinnerColors(matchedColors);
 
         }
 
@@ -146,31 +149,47 @@ namespace Cachero_Color_Game
             }   
         }
 
-        private void getColorArrValues(int[] colorArr) 
+        private void getColorMatches(int[] colorArr) 
         {
+            prizeColors = new List<string>();
+            matchedColors = new Dictionary<string, int>();
+           
+
             for (int i = 0; i < colorArr.Length; i++) 
             {
                 switch (colorArr[i]) 
                 {
                     case 0:
-                        MessageBox.Show($"Color {i + 1}: Blue");
+                        prizeColors.Add("blue");
                         break;
                     case 1:
-                        MessageBox.Show($"Color {i + 1}: Green");
+                        prizeColors.Add("green");
                         break;
                     case 2:
-                        MessageBox.Show($"Color {i + 1}: Yellow");
+                        prizeColors.Add("yellow");
                         break;
                     case 3:
-                        MessageBox.Show($"Color {i + 1}: Red");
+                        prizeColors.Add("red");
                         break;
                     case 4:
-                        MessageBox.Show($"Color {i + 1}: Orange");
+                        prizeColors.Add("orange");
                         break;
                     case 5:
-                        MessageBox.Show($"Color {i + 1}: Purple");
+                        prizeColors.Add("purple");
                         break;
+                }
+            }
 
+            for (int i = 0; i < prizeColors.Count; i++) 
+            {
+                for (int x = 0; x < bettedColors.Count; x++) 
+                {
+                    if (prizeColors.ElementAt(i) == bettedColors.Keys.ElementAt(x)) 
+                    {
+                        string keyTemp = $"Key{x+1}:{bettedColors.Keys.ElementAt(x)}";
+                        matchedColors.Add(keyTemp, bettedColors.Values.ElementAt(x));
+                        keyTemp = string.Empty;
+                    }
                 }
             }
         }
@@ -256,6 +275,46 @@ namespace Cachero_Color_Game
         private void lginBtn_Click(object sender, RoutedEventArgs e)
         {
             login();
+        }
+
+        private void getWinnerColors(Dictionary<string, int> matchedColors) 
+        {
+            //red = x5
+            //orange = x5
+            //yellow = x4
+            //green = x4
+            //blue = x3
+            //purple = x3
+
+            int totalWinnings = 0;
+
+            for (int i = 0; i < matchedColors.Count; i++) 
+            {
+                switch (matchedColors.Keys.ElementAt(i).ToString().Split(':')[1]) 
+                {
+                    case "red":
+                        totalWinnings += matchedColors.Values.ElementAt(i) * 5;
+                        break;
+                    case "orange":
+                        totalWinnings += matchedColors.Values.ElementAt(i) * 5;
+                        break;
+                    case "yellow":
+                        totalWinnings += matchedColors.Values.ElementAt(i) * 4;
+                        break;
+                    case "green":
+                        totalWinnings += matchedColors.Values.ElementAt(i) * 4;
+                        break;
+                    case "blue":
+                        totalWinnings += matchedColors.Values.ElementAt(i) * 3;
+                        break;
+                    case "purple":
+                        totalWinnings += matchedColors.Values.ElementAt(i) * 3;
+                        break;
+                }
+
+            }
+
+            MessageBox.Show($"Your Total winnings are: {totalWinnings}");
         }
     }
 }
