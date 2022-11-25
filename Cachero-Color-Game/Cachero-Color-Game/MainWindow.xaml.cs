@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -26,9 +27,11 @@ namespace Cachero_Color_Game
         private Color[] listOfColors = new Color[6];
         private int[] selectedColors = new int[] { };
         private int nextcustomerID = 0;
-        private Dictionary<string, int> bettedColors =new Dictionary<string, int>();
-        private Dictionary<string, int> matchedColors = new Dictionary<string, int>();
+        private Dictionary<string, int> bettedColors = new Dictionary<string, int>();
+        private Dictionary<string, int> matchedColors = new Dictionary<string, int>();     
         private List<string> prizeColors = new List<string>();
+        private Regex pattern = new Regex("^[0-9]+$", RegexOptions.IgnoreCase);
+        private string[] errorMessage = new string[3];
 
         public MainWindow()
         {
@@ -45,6 +48,17 @@ namespace Cachero_Color_Game
                 purpleWagerTbx.IsEnabled=false;
                 orangeWagerTbx.IsEnabled = false;
             }
+        }
+
+        private string formatErrMessage(string[] errMess)
+        {
+            string errMessToShow = string.Empty;
+
+            errMessToShow = "Error Code: " + errMess[0] + "\n" +
+                "Error Name: " + errMess[1] + "\n" +
+                "Error Description: " + errMess[2];
+
+            return errMessToShow;
         }
 
         private void initDices() 
@@ -142,17 +156,219 @@ namespace Cachero_Color_Game
             listOfColors[5] = Color.FromRgb(255, 0, 255); // Color of Purple
         }
 
+        private string wagerAmountVerification() 
+        {
+            Dictionary<string, string> forChecking = new Dictionary<string, string>();
+
+            string redWager = redWagerTbx.Text;
+            string orangeWager = orangeWagerTbx.Text;
+            string yellowWager = yellowWagerTbx.Text;
+            string greenWager = greenWagerTbx.Text;
+            string blueWager = blueWagerTbx.Text;
+            string purpleWager = purpleWagerTbx.Text;
+            string errMessage = string.Empty;         
+
+            forChecking.Add("red", redWager);
+            forChecking.Add("orange", orangeWager);
+            forChecking.Add("yellow", yellowWager);
+            forChecking.Add("green", greenWager);
+            forChecking.Add("blue", blueWager);
+            forChecking.Add("purple", purpleWager);
+
+            for (int i = 0; i < forChecking.Count; i++) 
+            {
+                string tempVal = forChecking.Values.ElementAt(i);
+                string tempKey = forChecking.Keys.ElementAt(i);
+
+                if (!pattern.IsMatch(tempVal))
+                {
+                    errMessage += $"INVALID AMOUNT: COLOR {tempKey.ToUpper()} \n\n";
+                }
+            }
+            
+            return errMessage;
+
+        }
+
+        private string noZeroAmountVerification() 
+        {
+            int[] valuesForChecking = new int[6];
+            string errMess = string.Empty;
+            int redWager = int.Parse(redWagerTbx.Text);
+            int orangeWager = int.Parse(orangeWagerTbx.Text);
+            int yellowWager = int.Parse(yellowWagerTbx.Text);
+            int greenWager = int.Parse(greenWagerTbx.Text);
+            int blueWager = int.Parse(blueWagerTbx.Text);
+            int purpleWager = int.Parse(purpleWagerTbx.Text);
+            int zeroChecker = 0;
+
+            for (int i = 0; i < valuesForChecking.Length; i++) 
+            {
+                switch (i) 
+                {
+                    case 0:
+                        valuesForChecking[i] = redWager;
+                        break;
+                    case 1:
+                        valuesForChecking[i] = orangeWager;
+                        break;
+                    case 2:
+                        valuesForChecking[i] = yellowWager;
+                        break;
+                    case 3:
+                        valuesForChecking[i] = greenWager;
+                        break;
+                    case 4:
+                        valuesForChecking[i] = blueWager;
+                        break;
+                    case 5:
+                        valuesForChecking[i] = purpleWager;
+                        break;
+                }
+            }
+
+            for (int i = 0; i < valuesForChecking.Length; i++) 
+            {
+                if (valuesForChecking[i] < 1) 
+                {
+                    zeroChecker++;
+                }
+            }
+
+            if (zeroChecker == 6) 
+            {
+                errMess = "TOTAL WAGER CANNOT BE EQUAL TO ZERO!";
+            }
+
+            return errMess;
+        }
+
+        private string balanceWagerVerification() 
+        {
+            decimal playerBalance = decimal.Parse(uBalanceLbl.Content.ToString().Split(':')[1]);
+            int[] valuesForChecking = new int[6];
+            string errMess = string.Empty;
+            int redWager = int.Parse(redWagerTbx.Text);
+            int orangeWager = int.Parse(orangeWagerTbx.Text);
+            int yellowWager = int.Parse(yellowWagerTbx.Text);
+            int greenWager = int.Parse(greenWagerTbx.Text);
+            int blueWager = int.Parse(blueWagerTbx.Text);
+            int purpleWager = int.Parse(purpleWagerTbx.Text);
+            int totalBetChecker = 0 ;
+
+            for (int i = 0; i < valuesForChecking.Length; i++)
+            {
+                switch (i)
+                {
+                    case 0:
+                        valuesForChecking[i] = redWager;
+                        break;
+                    case 1:
+                        valuesForChecking[i] = orangeWager;
+                        break;
+                    case 2:
+                        valuesForChecking[i] = yellowWager;
+                        break;
+                    case 3:
+                        valuesForChecking[i] = greenWager;
+                        break;
+                    case 4:
+                        valuesForChecking[i] = blueWager;
+                        break;
+                    case 5:
+                        valuesForChecking[i] = purpleWager;
+                        break;
+                }
+            }
+
+            for (int i = 0; i < valuesForChecking.Length; i++)
+            {
+              totalBetChecker += valuesForChecking[i];
+            }
+
+            if (totalBetChecker > playerBalance) 
+            {
+                errMess = "INSUFFICIENT FUNDS!";
+            }
+
+            return errMess;
+        }
+
         private void confirmWagerBtn_Click(object sender, RoutedEventArgs e)
         {
+          
             var confirm = MessageBox.Show("Do you want to proceed with this action?", "Confirmation", MessageBoxButton.YesNo);
-            
+           
             if (confirm == MessageBoxResult.Yes)
             {
-                getBettedColors();
-                for (int i = 0; i < gameColorDice.Length; i++)
-                    gameColorDice[i].Background = new SolidColorBrush(Colors.Transparent);
-                addElColorList();
-                generateColor();
+                if (wagerAmountVerification() != String.Empty)
+                {
+                    for (int i = 0; i < errorMessage.Length; i++)
+                    {
+                        switch (i)
+                        {
+                            case 0:
+                                errorMessage[i] = "E1";
+                                break;
+                            case 1:
+                                errorMessage[i] = "INPUT ERROR!";
+                                break;
+                            case 2:
+                                errorMessage[i] = $"\n\n{wagerAmountVerification()}";
+                                break;
+                        }
+                    }
+
+                    MessageBox.Show(formatErrMessage(errorMessage));
+                }
+                else if (noZeroAmountVerification() != String.Empty)
+                {
+                    for (int i = 0; i < errorMessage.Length; i++)
+                    {
+                        switch (i)
+                        {
+                            case 0:
+                                errorMessage[i] = "E1";
+                                break;
+                            case 1:
+                                errorMessage[i] = "INPUT ERROR!";
+                                break;
+                            case 2:
+                                errorMessage[i] = $"{noZeroAmountVerification()}";
+                                break;
+                        }
+                    }
+
+                    MessageBox.Show(formatErrMessage(errorMessage));
+                }
+                else if (balanceWagerVerification() != String.Empty) 
+                {
+                    for (int i = 0; i < errorMessage.Length; i++)
+                    {
+                        switch (i)
+                        {
+                            case 0:
+                                errorMessage[i] = "E1";
+                                break;
+                            case 1:
+                                errorMessage[i] = "INPUT ERROR!";
+                                break;
+                            case 2:
+                                errorMessage[i] = $"{balanceWagerVerification()}";
+                                break;
+                        }
+                    }
+
+                    MessageBox.Show(formatErrMessage(errorMessage));
+                }
+                else
+                {
+                    getBettedColors();
+                    for (int i = 0; i < gameColorDice.Length; i++)
+                        gameColorDice[i].Background = new SolidColorBrush(Colors.Transparent);
+                    addElColorList();
+                    generateColor();
+                }              
             }
             else
             {
