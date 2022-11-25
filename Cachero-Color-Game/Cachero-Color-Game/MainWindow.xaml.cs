@@ -34,6 +34,17 @@ namespace Cachero_Color_Game
         {
             InitializeComponent();
             initDices();
+            if (uNameLbl.Content.ToString().Split(':')[1] == " ") 
+            {
+                confirmWagerBtn.IsEnabled = false;
+                blueWagerTbx.IsEnabled = false;
+                yellowWagerTbx.IsEnabled = false;
+                redWagerTbx.IsEnabled = false;
+                greenWagerTbx.IsEnabled = false;
+                blueWagerTbx.IsEnabled = false;
+                purpleWagerTbx.IsEnabled=false;
+                orangeWagerTbx.IsEnabled = false;
+            }
         }
 
         private void initDices() 
@@ -233,6 +244,10 @@ namespace Cachero_Color_Game
 
         private void login()
         {
+            lblloginstatus.Content = "Log In Status : ";
+            uNameStatusLbl.Content = "Username Status : ";
+            uPasswordStatuslbl.Content = "Password Status : ";
+
             var allCustomers = (from b in amazonDB.table_Customers
                                 where b.Customer_Username == txtloginUsername.Text
                                 select b).ToList();
@@ -254,21 +269,37 @@ namespace Cachero_Color_Game
 
             if (customers.Contains(txtloginUsername.Text))
             {
-                lblloginstatus.Content = "Username Found";
+                uNameStatusLbl.Content += "Username Found";
                 password = customerLogin.Customer_Password.ToString();
 
                 if (txtloginPassword.Password == password)
                 {
-                    lblloginstatus.Content = "Login Success";
+                    lblloginstatus.Content += "Login Success";
+                    uPasswordStatuslbl.Content += "Password Match!";
+                    txtloginPassword.Password = string.Empty;
+                    txtloginUsername.Text = string.Empty;
+                    lginBtn.Content = "Log Out";
+                    confirmWagerBtn.IsEnabled = true;
+                    blueWagerTbx.IsEnabled = true;
+                    yellowWagerTbx.IsEnabled = true;
+                    redWagerTbx.IsEnabled = true;
+                    greenWagerTbx.IsEnabled = true;
+                    blueWagerTbx.IsEnabled = true;
+                    purpleWagerTbx.IsEnabled = true;
+                    orangeWagerTbx.IsEnabled = true;
+                    txtloginUsername.IsEnabled = false;
+                    txtloginPassword.IsEnabled = false;
                 }
                 else
                 {
-                    lblloginstatus.Content = "Incorrect Password";
+                    uPasswordStatuslbl.Content += "Incorrect Password";
+                    lblloginstatus.Content += "Login Failed";
                 }
             }
             else
             {
-                lblloginstatus.Content = "Username Not Found";
+                uNameStatusLbl.Content += "Username Not Found";
+                lblloginstatus.Content += "Login Failed";
             }
         }
 

@@ -5,41 +5,42 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Cachero_Color_Game"
         mc:Ignorable="d"
-        Title="MainWindow" Height="560" Width="800" SizeToContent="WidthAndHeight" ResizeMode="NoResize">
+        Title="MainWindow" Height="611" Width="800" SizeToContent="WidthAndHeight" ResizeMode="NoResize">
     <Grid x:Name="mainGrid">
-        <Grid Height="Auto" Margin="28,283,680,130" Width="Auto">
+        <Grid Height="Auto" Margin="28,274,680,139" Width="Auto">
             <Rectangle x:Name="redHolRect" Fill="Red" Stroke="Black" Margin="0,0,71,0" Width="21" Height="21"/>
             <TextBox x:Name="redWagerTbx" HorizontalAlignment="Left" Margin="22,0,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Center" Width="70"/>
         </Grid>
-        <Grid Height="Auto" Margin="28,309,680,104" Width="Auto">
+        <Grid Height="Auto" Margin="28,300,680,113" Width="Auto">
             <Rectangle x:Name="orangeHolRect" Fill="DarkOrange" Stroke="Black" Margin="0,0,71,0" Width="21" Height="21"/>
             <TextBox x:Name="orangeWagerTbx" HorizontalAlignment="Left" Margin="22,0,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Center" Width="70"/>
         </Grid>
-        <Grid Height="Auto" Margin="28,361,680,52" Width="Auto">
+        <Grid Height="Auto" Margin="28,352,680,61" Width="Auto">
             <Rectangle x:Name="greenHolRect" Fill="Lime" Stroke="Black" Margin="0,0,71,0" Width="21" Height="21"/>
             <TextBox x:Name="greenWagerTbx" HorizontalAlignment="Left" Margin="22,0,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Center" Width="70"/>
         </Grid>
-        <Grid Height="Auto" Margin="28,413,680,0" Width="Auto">
+        <Grid Height="Auto" Margin="28,404,680,9" Width="Auto">
             <Rectangle x:Name="violetHolRect" Fill="Magenta" Stroke="Black" Margin="0,0,71,0" Width="21" Height="21"/>
             <TextBox x:Name="purpleWagerTbx" HorizontalAlignment="Left" Margin="22,0,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Center" Width="70"/>
         </Grid>
-        <Grid Height="Auto" Margin="28,335,680,78" Width="Auto">
+        <Grid Height="Auto" Margin="28,326,680,87" Width="Auto">
             <Rectangle x:Name="yellowHolRect" Fill="Yellow" Stroke="Black" Margin="0,0,71,0" Width="21" Height="21"/>
             <TextBox x:Name="yellowWagerTbx" HorizontalAlignment="Left" Margin="22,0,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Center" Width="70"/>
         </Grid>
-        <Grid Margin="28,387,680,26">
+        <Grid Margin="28,378,680,35">
             <Rectangle x:Name="blueHolRect" Fill="Blue" Stroke="Black" Margin="0,0,71,0" Width="21" Height="21"/>
             <TextBox x:Name="blueWagerTbx" HorizontalAlignment="Left" Margin="22,0,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Center" Width="70"/>
+            <Button x:Name="confirmWagerBtn" Content="Place Wager" HorizontalAlignment="Left" Margin="0,152,0,0" VerticalAlignment="Top" Width="83" Click="confirmWagerBtn_Click"/>
         </Grid>
         <Label x:Name="wagerHeaderLbl" Content="Place Wager Here:" HorizontalAlignment="Left" VerticalAlignment="Top" Width="119" Margin="24,304,0,0"/>
-
-        <Button x:Name="confirmWagerBtn" Content="Place Wager" HorizontalAlignment="Left" Margin="28,508,0,0" VerticalAlignment="Top" Width="83" Click="confirmWagerBtn_Click"/>
         <Button x:Name="lginBtn" Content="Log In" HorizontalAlignment="Left" Margin="28,95,0,0" VerticalAlignment="Top" Width="60" Click="lginBtn_Click"/>
         <Label x:Name="uNameLbl" Content="Player Name: " HorizontalAlignment="Left" Margin="24,226,0,0" VerticalAlignment="Top"/>
         <Label x:Name="uBalanceLbl" Content="Player Balance: " HorizontalAlignment="Left" Margin="24,257,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="txtloginUsername" HorizontalAlignment="Left" Margin="28,30,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
         <PasswordBox x:Name="txtloginPassword" HorizontalAlignment="Left" Margin="28,61,0,0" VerticalAlignment="Top" Width="120"/>
         <Label x:Name="lblloginstatus" Content="Login Status : " HorizontalAlignment="Left" Margin="28,136,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="uNameStatusLbl" Content="Username Status : " HorizontalAlignment="Left" Margin="153,26,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="uPasswordStatuslbl" Content="Password Status : " HorizontalAlignment="Left" Margin="153,57,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>
