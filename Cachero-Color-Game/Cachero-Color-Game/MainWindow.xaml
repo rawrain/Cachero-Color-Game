@@ -33,14 +33,8 @@
             <Button x:Name="confirmWagerBtn" Content="Place Wager" HorizontalAlignment="Left" Margin="0,152,0,0" VerticalAlignment="Top" Width="83" Click="confirmWagerBtn_Click"/>
         </Grid>
         <Label x:Name="wagerHeaderLbl" Content="Place Wager Here:" HorizontalAlignment="Left" VerticalAlignment="Top" Width="119" Margin="24,304,0,0"/>
-        <Button x:Name="lginBtn" Content="Log In" HorizontalAlignment="Left" Margin="28,95,0,0" VerticalAlignment="Top" Width="60" Click="lginBtn_Click"/>
         <Label x:Name="uNameLbl" Content="Player Name: " HorizontalAlignment="Left" Margin="24,226,0,0" VerticalAlignment="Top"/>
         <Label x:Name="uBalanceLbl" Content="Player Balance: " HorizontalAlignment="Left" Margin="24,257,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtloginUsername" HorizontalAlignment="Left" Margin="28,30,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <PasswordBox x:Name="txtloginPassword" HorizontalAlignment="Left" Margin="28,61,0,0" VerticalAlignment="Top" Width="120"/>
-        <Label x:Name="lblloginstatus" Content="Login Status : " HorizontalAlignment="Left" Margin="28,136,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="uNameStatusLbl" Content="Username Status : " HorizontalAlignment="Left" Margin="153,26,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="uPasswordStatuslbl" Content="Password Status : " HorizontalAlignment="Left" Margin="153,57,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>
