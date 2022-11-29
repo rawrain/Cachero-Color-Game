@@ -10,5 +10,13 @@
 &lt;/SerializableConnectionString&gt;</DesignTimeValue>
       <Value Profile="(Default)">Data Source=testdatabase.ceeszjwt7h7h.ap-southeast-1.rds.amazonaws.com;Initial Catalog=Group2-RoyalCasino;User ID=admin;Password=password;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False</Value>
     </Setting>
+    <Setting Name="Group_2___CasinoConnectionString" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"&gt;
+  &lt;ConnectionString&gt;Data Source=brent.ceeszjwt7h7h.ap-southeast-1.rds.amazonaws.com;Initial Catalog="Group 2 - Casino";User ID=admin;Password=password;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False&lt;/ConnectionString&gt;
+  &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">Data Source=brent.ceeszjwt7h7h.ap-southeast-1.rds.amazonaws.com;Initial Catalog="Group 2 - Casino";User ID=admin;Password=password;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

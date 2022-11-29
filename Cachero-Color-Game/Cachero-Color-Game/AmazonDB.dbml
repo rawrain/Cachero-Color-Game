@@ -1,5 +1,17 @@
-﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Group2-RoyalCasino" Class="AmazonDBDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=testdatabase.ceeszjwt7h7h.ap-southeast-1.rds.amazonaws.com;Initial Catalog=Group2-RoyalCasino;User ID=admin;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False" SettingsObjectName="Cachero_Color_Game.Properties.Settings" SettingsPropertyName="Group2_RoyalCasinoConnectionString" Provider="System.Data.SqlClient" />
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Group 2 - Casino" Class="AmazonDBDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=brent.ceeszjwt7h7h.ap-southeast-1.rds.amazonaws.com;Initial Catalog=&quot;Group 2 - Casino&quot;;User ID=admin;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False" SettingsObjectName="Cachero_Color_Game.Properties.Settings" SettingsPropertyName="Group_2___CasinoConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.table_Machines" Member="table_Machines">
+    <Type Name="table_Machine">
+      <Column Name="Machine_ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Game_ID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Machine_CurrentBalance" Type="System.Decimal" DbType="Decimal(19,4) NOT NULL" CanBeNull="false" />
+      <Column Name="Machine_CurrentCustomerWinnings" Type="System.Decimal" DbType="Decimal(19,4) NOT NULL" CanBeNull="false" />
+      <Column Name="Customer_ID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="table_Machine_table_GameLog" Member="table_GameLogs" ThisKey="Machine_ID" OtherKey="Machine_ID" Type="table_GameLog" />
+      <Association Name="table_Customer_table_Machine" Member="table_Customer" ThisKey="Customer_ID" OtherKey="Customer_ID" Type="table_Customer" IsForeignKey="true" />
+      <Association Name="table_Game_table_Machine" Member="table_Game" ThisKey="Game_ID" OtherKey="Game_ID" Type="table_Game" IsForeignKey="true" />
+    </Type>
+  </Table>
   <Table Name="dbo.table_Customers" Member="table_Customers">
     <Type Name="table_Customer">
       <Column Name="Customer_ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -13,6 +25,171 @@
       <Column Name="Customer_PhoneNumber" Type="System.String" DbType="VarChar(11) NOT NULL" CanBeNull="false" />
       <Column Name="Customer_CurrentBalance" Type="System.Decimal" DbType="Decimal(19,4) NOT NULL" CanBeNull="false" />
       <Column Name="Customer_TotalSpent" Type="System.Decimal" DbType="Decimal(19,4) NOT NULL" CanBeNull="false" />
+      <Association Name="table_Customer_table_Machine" Member="table_Machines" ThisKey="Customer_ID" OtherKey="Customer_ID" Type="table_Machine" />
+      <Association Name="table_ID_table_Customer" Member="table_ID" ThisKey="ID_ID" OtherKey="ID_ID" Type="table_ID" IsForeignKey="true" />
     </Type>
   </Table>
+  <Table Name="dbo.table_ErrorCodes" Member="table_ErrorCodes">
+    <Type Name="table_ErrorCode">
+      <Column Name="ErrorCode_ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ErrorCode_Description" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Association Name="table_ErrorCode_table_GameLog" Member="table_GameLogs" ThisKey="ErrorCode_ID" OtherKey="ErrorCodes_ID" Type="table_GameLog" />
+    </Type>
+  </Table>
+  <Table Name="dbo.table_GameLogs" Member="table_GameLogs">
+    <Type Name="table_GameLog">
+      <Column Name="GameLog_ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="GameLog_DateTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Customer_ID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Machine_ID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Game_ID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ErrorCodes_ID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="GameLog_Description" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Machine_CurrentCustomerWinnings" Type="System.Decimal" DbType="Decimal(19,4) NOT NULL" CanBeNull="false" />
+      <Column Name="Machine_CurrentBalance" Type="System.Decimal" DbType="Decimal(19,4) NOT NULL" CanBeNull="false" />
+      <Association Name="table_ErrorCode_table_GameLog" Member="table_ErrorCode" ThisKey="ErrorCodes_ID" OtherKey="ErrorCode_ID" Type="table_ErrorCode" IsForeignKey="true" />
+      <Association Name="table_Machine_table_GameLog" Member="table_Machine" ThisKey="Machine_ID" OtherKey="Machine_ID" Type="table_Machine" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.table_Games" Member="table_Games">
+    <Type Name="table_Game">
+      <Column Name="Game_ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Game_Name" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Game_DevName" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Association Name="table_Game_table_Machine" Member="table_Machines" ThisKey="Game_ID" OtherKey="Game_ID" Type="table_Machine" />
+    </Type>
+  </Table>
+  <Table Name="dbo.table_IDs" Member="table_IDs">
+    <Type Name="table_ID">
+      <Column Name="ID_ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ID_Type" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="ID_Description" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Association Name="table_ID_table_Customer" Member="table_Customers" ThisKey="ID_ID" OtherKey="ID_ID" Type="table_Customer" />
+    </Type>
+  </Table>
+  <Function Name="dbo.uspAddBalance" Method="uspAddBalance">
+    <Parameter Name="customerID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="addbalance" Type="System.Decimal" DbType="Decimal(19,4)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.uspCreateGameLog" Method="uspCreateGameLog">
+    <Parameter Name="datetime" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="customerID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="machineID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="gameID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="errorcodeID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="gamelogcomments" Type="System.String" DbType="NVarChar(100)" />
+    <Parameter Name="currentcustomerwinnings" Type="System.Decimal" DbType="Decimal(19,4)" />
+    <Parameter Name="machinecurrentbalance" Type="System.Decimal" DbType="Decimal(19,4)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.uspCustomerBasicUpdateDetails" Method="uspCustomerBasicUpdateDetails">
+    <Parameter Name="currentUser" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="username" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="password" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="firstname" Type="System.String" DbType="NVarChar(100)" />
+    <Parameter Name="middlename" Type="System.String" DbType="NVarChar(100)" />
+    <Parameter Name="lastname" Type="System.String" DbType="NVarChar(100)" />
+    <Parameter Name="phonenumber" Type="System.String" DbType="VarChar(11)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.uspCustomerRegister" Method="uspCustomerRegister">
+    <Parameter Name="username" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="password" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="firstname" Type="System.String" DbType="NVarChar(100)" />
+    <Parameter Name="middlename" Type="System.String" DbType="NVarChar(100)" />
+    <Parameter Name="lastname" Type="System.String" DbType="NVarChar(100)" />
+    <Parameter Name="phonenumber" Type="System.String" DbType="VarChar(11)" />
+    <Parameter Name="idtype" Type="System.Int32" DbType="Int" />
+    <Parameter Name="idnumber" Type="System.String" DbType="NVarChar(100)" />
+    <Parameter Name="currentbalance" Type="System.Decimal" DbType="Decimal(19,4)" />
+    <Parameter Name="totalspent" Type="System.Decimal" DbType="Decimal(19,4)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.uspSelectCustomerBalance" Method="uspSelectCustomerBalance">
+    <Parameter Name="customerID" Type="System.Int32" DbType="Int" />
+    <ElementType Name="uspSelectCustomerBalanceResult">
+      <Column Name="Customer_CurrentBalance" Type="System.Decimal" DbType="Decimal(19,4) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.uspSelectMachineBalance" Method="uspSelectMachineBalance">
+    <Parameter Name="machineID" Type="System.Int32" DbType="Int" />
+    <ElementType Name="uspSelectMachineBalanceResult">
+      <Column Name="Machine_CurrentBalance" Type="System.Decimal" DbType="Decimal(19,4) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.uspSelectMachineCurrentWinnings" Method="uspSelectMachineCurrentWinnings">
+    <Parameter Name="machineID" Type="System.Int32" DbType="Int" />
+    <ElementType Name="uspSelectMachineCurrentWinningsResult">
+      <Column Name="Machine_CurrentCustomerWinnings" Type="System.Decimal" DbType="Decimal(19,4) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.uspUpdateCashOutMachineBalance" Method="uspUpdateCashOutMachineBalance">
+    <Parameter Name="machineID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="lessBalance" Type="System.Decimal" DbType="Decimal(19,4)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.uspUpdateCustomerCurrentBalance" Method="uspUpdateCustomerCurrentBalance">
+    <Parameter Name="customerID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="currentBet" Type="System.Decimal" DbType="Decimal(19,4)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.uspUpdateMachineBalance" Method="uspUpdateMachineBalance">
+    <Parameter Name="machineID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="newBalance" Type="System.Decimal" DbType="Decimal(19,4)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.uspUpdateMachineCurrentWinnings" Method="uspUpdateMachineCurrentWinnings">
+    <Parameter Name="machineID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="currentWinnings" Type="System.Decimal" DbType="Decimal(19,4)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.uspUpdateMachineCustomer" Method="uspUpdateMachineCustomer">
+    <Parameter Name="machineID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="customerID" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.uspUpdateMachineGame" Method="uspUpdateMachineGame">
+    <Parameter Name="machineID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="gameID" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.vwFunqAllGameLogs" Method="vwFunqAllGameLogs" IsComposable="true">
+    <ElementType Name="vwFunqAllGameLogsResult">
+      <Column Name="GameLog_ID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="GameLog_DateTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Customer_ID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Machine_ID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Game_ID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ErrorCodes_ID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="GameLog_Description" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Machine_CurrentCustomerWinnings" Type="System.Decimal" DbType="Decimal(19,4) NOT NULL" CanBeNull="false" />
+      <Column Name="Machine_CurrentBalance" Type="System.Decimal" DbType="Decimal(19,4) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.vwFunqAllMachines" Method="vwFunqAllMachines" IsComposable="true">
+    <ElementType Name="vwFunqAllMachinesResult">
+      <Column Name="Machine_ID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Game_ID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Machine_CurrentBalance" Type="System.Decimal" DbType="Decimal(19,4) NOT NULL" CanBeNull="false" />
+      <Column Name="Machine_CurrentCustomerWinnings" Type="System.Decimal" DbType="Decimal(19,4) NOT NULL" CanBeNull="false" />
+      <Column Name="Customer_ID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.vwFunqSearchCustomer" Method="vwFunqSearchCustomer" IsComposable="true">
+    <Parameter Name="username" Type="System.String" DbType="NVarChar(50)" />
+    <ElementType Name="vwFunqSearchCustomerResult">
+      <Column Name="Customer_ID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Customer_Username" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Customer_Password" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Customer_FirstName" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Customer_MiddleName" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Customer_LastName" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="ID_ID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Customer_IDNumber" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Customer_PhoneNumber" Type="System.String" DbType="VarChar(11) NOT NULL" CanBeNull="false" />
+      <Column Name="Customer_CurrentBalance" Type="System.Decimal" DbType="Decimal(19,4) NOT NULL" CanBeNull="false" />
+      <Column Name="Customer_TotalSpent" Type="System.Decimal" DbType="Decimal(19,4) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
 </Database>
