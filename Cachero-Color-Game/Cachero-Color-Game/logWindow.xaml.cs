@@ -17,11 +17,42 @@ namespace Cachero_Color_Game
     /// <summary>
     /// Interaction logic for logWindow.xaml
     /// </summary>
-    public partial class logWindow : Window
+    public partial class logWindow : Window 
     {
+        private dbInteractions dbOps = new dbInteractions();
+
         public logWindow()
         {
             InitializeComponent();
+        }
+
+        private void logInBtn_Click(object sender, RoutedEventArgs e)
+        {
+            string uName = string.Empty;
+            string uPass = string.Empty;
+            
+            uName = uNameTbx.Text;
+            uPass = uPassTbx.Password;
+
+            if (dbOps.userLogin(uName, uPass)[0] != "1")
+            {
+                if (dbOps.userLogin(uName, uPass)[0] == "5")
+                {
+                    MessageBox.Show(dbOps.userLogin(uName, uPass)[1]);
+                    this.Close();
+                }
+                else
+                {
+                    MessageBox.Show(dbOps.userLogin(uName, uPass)[1]);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Welcome to the game!");
+                MainWindow mw = new MainWindow();
+                mw.Show();
+                this.Close();
+            } 
         }
     }
 }

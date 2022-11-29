@@ -5,8 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Cachero_Color_Game"
         mc:Ignorable="d"
-        Title="logWindow" Height="450" Width="800">
+        Title="logWindow" Height="229" Width="458">
     <Grid>
-        
+        <TextBox x:Name="uNameTbx" HorizontalAlignment="Left" Margin="93,45,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="316"/>
+        <PasswordBox x:Name="uPassTbx" HorizontalAlignment="Left" Margin="94,80,0,0" VerticalAlignment="Top" Width="315"/>
+        <Label x:Name="uNameLbl" Content="Username" HorizontalAlignment="Left" Margin="25,41,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="uPassLbl" Content="Password" HorizontalAlignment="Left" Margin="25,76,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="logInBtn" Content="Log In" HorizontalAlignment="Left" Margin="346,150,0,0" VerticalAlignment="Top" Width="63" Click="logInBtn_Click"/>
+
     </Grid>
 </Window>
