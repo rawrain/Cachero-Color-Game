@@ -147,5 +147,20 @@ namespace Cachero_Color_Game
             return this.uID;
         }
 
+        public void updateCurrentMachineWinnings(decimal gameRoundWinnings) 
+        {
+            dbCon.uspUpdateMachineCurrentWinnings(machineID, gameRoundWinnings);
+        }
+
+        public void updateMachineCurrentBalance(decimal newMachineBalance)
+        {
+            dbCon.uspUpdateMachineBalance(machineID, newMachineBalance);
+        }
+
+        public void updatePlayerCurrentBalance(int uID, decimal gameRoundTotalWager) 
+        {
+            dbCon.uspUpdateCustomerCurrentBalance(uID, gameRoundTotalWager);
+        }
+
     }
 }

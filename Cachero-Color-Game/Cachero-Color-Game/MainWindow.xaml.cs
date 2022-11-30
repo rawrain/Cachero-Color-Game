@@ -34,19 +34,13 @@ namespace Cachero_Color_Game
         private logWindow lw = new logWindow();
         private int uID = 0;
         private decimal gameRoundWager = 0;
+        private decimal gameRoundWinnings = 0;
 
         public MainWindow(int uID)
         {
             InitializeComponent();
             initDices(); 
             this.uID = uID;
-            blueWagerTbx.IsEnabled = false;
-            yellowWagerTbx.IsEnabled = false;
-            redWagerTbx.IsEnabled = false;
-            greenWagerTbx.IsEnabled = false;
-            blueWagerTbx.IsEnabled = false;
-            purpleWagerTbx.IsEnabled = false;
-            orangeWagerTbx.IsEnabled = false;
             uNameLbl.Content += dbOps.getUserName(uID.ToString());
             uBalanceLbl.Content += dbOps.getBalance(uID.ToString()).ToString();
             
@@ -511,8 +505,7 @@ namespace Cachero_Color_Game
 
             }
 
-            uBalanceLbl.Content = $"Player Balance : {playerBalance + totalWinnings}";
-            MessageBox.Show($"You won P {totalWinnings}");
+            gameRoundWinnings += totalWinnings;
         }
     }
 }
