@@ -35,6 +35,7 @@ namespace Cachero_Color_Game
         private int uID = 0;
         private decimal gameRoundWager = 0;
         private decimal gameRoundWinnings = 0;
+        private string logComments = string.Empty;  
 
         public MainWindow(int uID)
         {
@@ -43,6 +44,7 @@ namespace Cachero_Color_Game
             this.uID = uID;
             uNameLbl.Content += dbOps.getUserName(uID.ToString());
             uBalanceLbl.Content += dbOps.getBalance(uID.ToString()).ToString();
+            
             
         }
     
@@ -355,7 +357,9 @@ namespace Cachero_Color_Game
                                 break;
                         }
                     }
-
+                    DateTime timeNow = DateTime.Now;
+                    logComments = $"Customer {uID} Balance is insufficient!";
+                    dbOps.createLog(timeNow, uID, 2, logComments, gameRoundWinnings, dbOps.getMachineBal());
                     MessageBox.Show(formatErrMessage(errorMessage));
                 }
                 else
@@ -459,10 +463,11 @@ namespace Cachero_Color_Game
             {
                 totalWagerValue += bettedColors.Values.ElementAt(i);
             }
-
+            DateTime timeNow = DateTime.Now;
             uBalanceLbl.Content = $"Player Balance : {playerBalance - totalWagerValue}";
-            MessageBox.Show($"You wagered {totalWagerValue}");
             gameRoundWager += totalWagerValue;
+            logComments = $"Customer {uID} betted {totalWagerValue}";
+            dbOps.createLog(timeNow, uID, 1, logComments, gameRoundWinnings, dbOps.getMachineBal());
           
         }
 
@@ -474,6 +479,7 @@ namespace Cachero_Color_Game
             //green = x4
             //blue = x3
             //purple = x3
+            DateTime timeNow = DateTime.Now;
 
             decimal playerBalance = decimal.Parse(uBalanceLbl.Content.ToString().Split(':')[1]);
 
@@ -504,8 +510,29 @@ namespace Cachero_Color_Game
                 }
 
             }
-
             gameRoundWinnings += totalWinnings;
+            logComments = $"Customer{uID} won {totalWinnings}";
+            dbOps.createLog(timeNow,uID,1,logComments,gameRoundWinnings,dbOps.getMachineBal());
+        }
+
+        private void logOutBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+            decimal newMachineBal = 0;
+            DateTime timeNow = DateTime.Now;
+            logComments = $"Customer {uID} has logged out";
+            dbOps.createLog(timeNow,uID,1,logComments,gameRoundWinnings,dbOps.getMachineBal());
+            newMachineBal = dbOps.getMachineBal() + gameRoundWager;
+            dbOps.updateCurrentMachineWinnings(gameRoundWinnings);
+            dbOps.updatePlayerCurrentBalance(uID, gameRoundWager);
+            dbOps.updateMachineCurrentBalance(newMachineBal);
+            dbOps.pushLogToDB();
+            uBalanceLbl.Content = "Player Balance: ";
+            uNameLbl.Content = "Player Name: ";
+            dbOps.changeMachineCustomerLogOut();
+            logWindow lw = new logWindow();
+            this.Close();
+            lw.Show();
         }
     }
 }

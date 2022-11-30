@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Cachero_Color_Game"
         mc:Ignorable="d"
-        Title="logWindow" Height="229" Width="458">
+        Title="logWindow" Height="229" Width="458" Activated="loginWindow_Activated">
     <Grid>
         <TextBox x:Name="uNameTbx" HorizontalAlignment="Left" Margin="93,45,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="316"/>
         <PasswordBox x:Name="uPassTbx" HorizontalAlignment="Left" Margin="94,80,0,0" VerticalAlignment="Top" Width="315"/>

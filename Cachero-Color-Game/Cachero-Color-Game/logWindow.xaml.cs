@@ -57,6 +57,17 @@ namespace Cachero_Color_Game
             } 
         }
 
-        
+        private void loginWindow_Activated(object sender, EventArgs e)
+        {
+            int machineBalCheck = 0;
+            machineBalCheck = dbOps.checkMachineBal();
+
+            if(machineBalCheck != 0)
+            {
+                MessageBox.Show("MACHINE RUNNING LOW ON FUNDS! MAINTENANCE NEEDED!\nPLEASE CONTACT THE NEAREST STAFF");
+                dbOps.MachineNotEnoughBalLog();
+                this.Close();
+            }
+        }
     }
 }
