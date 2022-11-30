@@ -33,6 +33,7 @@ namespace Cachero_Color_Game
             
             uName = uNameTbx.Text;
             uPass = uPassTbx.Password;
+           
 
             if (dbOps.userLogin(uName, uPass)[0] != "1")
             {
@@ -48,11 +49,14 @@ namespace Cachero_Color_Game
             }
             else
             {
+                userIDHol.Content = dbOps.getUID().ToString();
                 MessageBox.Show("Welcome to the game!");
-                MainWindow mw = new MainWindow();
+                MainWindow mw = new MainWindow(int.Parse(userIDHol.Content.ToString()));
                 mw.Show();
-                this.Close();
+                this.Hide();
             } 
         }
+
+        
     }
 }

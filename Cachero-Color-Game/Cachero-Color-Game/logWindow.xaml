@@ -12,6 +12,7 @@
         <Label x:Name="uNameLbl" Content="Username" HorizontalAlignment="Left" Margin="25,41,0,0" VerticalAlignment="Top"/>
         <Label x:Name="uPassLbl" Content="Password" HorizontalAlignment="Left" Margin="25,76,0,0" VerticalAlignment="Top"/>
         <Button x:Name="logInBtn" Content="Log In" HorizontalAlignment="Left" Margin="346,150,0,0" VerticalAlignment="Top" Width="63" Click="logInBtn_Click"/>
+        <Label x:Name="userIDHol" Visibility="Hidden" Content="" HorizontalAlignment="Left" Margin="25,10,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>

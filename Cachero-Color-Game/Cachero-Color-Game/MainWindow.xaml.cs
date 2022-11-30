@@ -21,35 +21,37 @@ namespace Cachero_Color_Game
     /// </summary>
     public partial class MainWindow : Window
     {
-        private AmazonDBDataContext amazonDB = new AmazonDBDataContext(Properties.Settings.Default.Group2_RoyalCasinoConnectionString);
+        private dbInteractions dbOps = new dbInteractions();
         private Label[] gameColorDice = new Label[] { }; 
         private Grid gameDiceGrid = new Grid();
         private Color[] listOfColors = new Color[6];
-        private int[] selectedColors = new int[] { };
-        private int nextcustomerID = 0;
+        private int[] selectedColors = new int[] { }; 
         private Dictionary<string, int> bettedColors = new Dictionary<string, int>();
         private Dictionary<string, int> matchedColors = new Dictionary<string, int>();     
         private List<string> prizeColors = new List<string>();
         private Regex pattern = new Regex("^[0-9]+$", RegexOptions.IgnoreCase);
         private string[] errorMessage = new string[3];
+        private logWindow lw = new logWindow();
+        private int uID = 0;
+        private decimal gameRoundWager = 0;
 
-        public MainWindow()
+        public MainWindow(int uID)
         {
             InitializeComponent();
-            initDices();
-            if (uNameLbl.Content.ToString().Split(':')[1] == " ") 
-            {
-                confirmWagerBtn.IsEnabled = false;
-                blueWagerTbx.IsEnabled = false;
-                yellowWagerTbx.IsEnabled = false;
-                redWagerTbx.IsEnabled = false;
-                greenWagerTbx.IsEnabled = false;
-                blueWagerTbx.IsEnabled = false;
-                purpleWagerTbx.IsEnabled=false;
-                orangeWagerTbx.IsEnabled = false;
-            }
+            initDices(); 
+            this.uID = uID;
+            blueWagerTbx.IsEnabled = false;
+            yellowWagerTbx.IsEnabled = false;
+            redWagerTbx.IsEnabled = false;
+            greenWagerTbx.IsEnabled = false;
+            blueWagerTbx.IsEnabled = false;
+            purpleWagerTbx.IsEnabled = false;
+            orangeWagerTbx.IsEnabled = false;
+            uNameLbl.Content += dbOps.getUserName(uID.ToString());
+            uBalanceLbl.Content += dbOps.getBalance(uID.ToString()).ToString();
+            
         }
-
+    
         private string formatErrMessage(string[] errMess)
         {
             string errMessToShow = string.Empty;
@@ -466,6 +468,7 @@ namespace Cachero_Color_Game
 
             uBalanceLbl.Content = $"Player Balance : {playerBalance - totalWagerValue}";
             MessageBox.Show($"You wagered {totalWagerValue}");
+            gameRoundWager += totalWagerValue;
           
         }
 

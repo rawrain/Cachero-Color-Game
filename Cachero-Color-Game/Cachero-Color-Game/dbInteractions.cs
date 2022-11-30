@@ -48,8 +48,8 @@ namespace Cachero_Color_Game
                 }
                 else
                 {
-                    uID = userLogin.Customer_ID;
-                    int checkUserAct = checkUserActive(uID);
+                    int uID = userLogin.Customer_ID;
+                    int checkUserAct = checkUserActive(uID);         
 
                     if (checkUserAct != 0)
                     {
@@ -80,7 +80,8 @@ namespace Cachero_Color_Game
                                     break;
                             }
                         }
-                        dbCon.uspUpdateMachineCustomer(machineID, uID);
+                        dbCon.uspUpdateMachineCustomer(machineID, uID);        
+                        this.uID = uID;
                     }
                 }
             }
@@ -125,6 +126,25 @@ namespace Cachero_Color_Game
             }
 
             return checker;
+        }
+
+        public string getUserName(string uID) 
+        {
+            var getUserName = (from a in dbCon.table_Customers where a.Customer_ID == int.Parse(uID) select a.Customer_FirstName).FirstOrDefault();
+            string userName = getUserName.ToString();
+            return userName;
+        }
+
+        public decimal getBalance(string uID)
+        {
+            var getUserBalance = (from a in dbCon.table_Customers where a.Customer_ID == int.Parse(uID) select a.Customer_CurrentBalance).FirstOrDefault();
+            decimal userBalance = getUserBalance;
+            return userBalance;
+        }
+
+        public int getUID() 
+        {
+            return this.uID;
         }
 
     }
