@@ -33,14 +33,28 @@ namespace Cachero_Color_Game
             
             uName = uNameTbx.Text;
             uPass = uPassTbx.Password;
+            userIDHol.Content = string.Empty;
            
 
             if (dbOps.userLogin(uName, uPass)[0] != "1")
             {
+                userIDHol.Content = dbOps.getUID().ToString();
                 if (dbOps.userLogin(uName, uPass)[0] == "5")
                 {
                     MessageBox.Show(dbOps.userLogin(uName, uPass)[1]);
+                    dbOps.playerActiveLog(int.Parse(userIDHol.Content.ToString()));
                     this.Close();
+                }
+                else if (dbOps.userLogin(uName, uPass)[0] == "7")
+                {
+                    MessageBox.Show(dbOps.userLogin(uName, uPass)[1]);
+                    dbOps.zeroBalanceLog(int.Parse(userIDHol.Content.ToString()));
+                    this.Close();
+                }
+                else if (dbOps.userLogin(uName, uPass)[0] == "4")
+                {
+                    MessageBox.Show(dbOps.userLogin(uName, uPass)[1]);
+                    dbOps.userNameNotFound(uName);     
                 }
                 else
                 {
@@ -53,7 +67,7 @@ namespace Cachero_Color_Game
                 MessageBox.Show("Welcome to the game!");
                 MainWindow mw = new MainWindow(int.Parse(userIDHol.Content.ToString()));
                 mw.Show();
-                this.Hide();
+                this.Close();
             } 
         }
 

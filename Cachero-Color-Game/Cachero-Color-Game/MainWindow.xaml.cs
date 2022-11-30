@@ -35,17 +35,19 @@ namespace Cachero_Color_Game
         private int uID = 0;
         private decimal gameRoundWager = 0;
         private decimal gameRoundWinnings = 0;
-        private string logComments = string.Empty;  
+        private string logComments = string.Empty;
+        private int logOutBtnCheck = 0;
 
         public MainWindow(int uID)
         {
             InitializeComponent();
             initDices(); 
             this.uID = uID;
+            DateTime timeNow = DateTime.Now;
+            logComments = $"Customer {uID} has logged In";
+            dbOps.createLog(timeNow,uID,1,logComments,gameRoundWinnings,dbOps.getMachineBal());
             uNameLbl.Content += dbOps.getUserName(uID.ToString());
             uBalanceLbl.Content += dbOps.getBalance(uID.ToString()).ToString();
-            
-            
         }
     
         private string formatErrMessage(string[] errMess)
@@ -408,17 +410,19 @@ namespace Cachero_Color_Game
                 }
             }
 
+            int counter = 0;
             for (int i = 0; i < prizeColors.Count; i++) 
             {
                 for (int x = 0; x < bettedColors.Count; x++) 
                 {
                     if (prizeColors.ElementAt(i) == bettedColors.Keys.ElementAt(x)) 
                     {
-                        string keyTemp = $"Key{x+1}:{bettedColors.Keys.ElementAt(x)}";
+                        string keyTemp = $"Key{counter++}:{bettedColors.Keys.ElementAt(x)}";
                         matchedColors.Add(keyTemp, bettedColors.Values.ElementAt(x));
                         keyTemp = string.Empty;
                     }
                 }
+               
             }
         }
 
@@ -520,6 +524,7 @@ namespace Cachero_Color_Game
 
             decimal newMachineBal = 0;
             DateTime timeNow = DateTime.Now;
+            logOutBtnCheck = 1;
             logComments = $"Customer {uID} has logged out";
             dbOps.createLog(timeNow,uID,1,logComments,gameRoundWinnings,dbOps.getMachineBal());
             newMachineBal = dbOps.getMachineBal() + gameRoundWager;
@@ -533,6 +538,26 @@ namespace Cachero_Color_Game
             logWindow lw = new logWindow();
             this.Close();
             lw.Show();
+        }
+
+        private void mainWindow_Closed(object sender, EventArgs e)
+        {
+            if (logOutBtnCheck != 1) 
+            {
+                decimal newMachineBal = 0;
+                DateTime timeNow = DateTime.Now;              
+                newMachineBal = dbOps.getMachineBal() + gameRoundWager;
+                dbOps.pushLogToDB();
+                dbOps.noLogoutLog(uID,gameRoundWinnings,newMachineBal);
+                dbOps.updateCurrentMachineWinnings(gameRoundWinnings);
+                dbOps.updatePlayerCurrentBalance(uID, gameRoundWager);
+                dbOps.updateMachineCurrentBalance(newMachineBal);   
+                uBalanceLbl.Content = "Player Balance: ";
+                uNameLbl.Content = "Player Name: ";
+                dbOps.changeMachineCustomerLogOut();
+                logWindow lw = new logWindow();
+                Environment.Exit(0);
+            }
         }
     }
 }

@@ -51,7 +51,8 @@ namespace Cachero_Color_Game
                 else
                 {
                     int uID = userLogin.Customer_ID;
-                    int checkUserAct = checkUserActive(uID);         
+                    int checkUserAct = checkUserActive(uID);
+                    this.uID = uID;
 
                     if (checkUserAct != 0)
                     {
@@ -70,20 +71,38 @@ namespace Cachero_Color_Game
                     }
                     else
                     {
-                        for (int i = 0; i < errorMessage.Length; i++)
+                        if (checkUserBalance(uID) != 0)
                         {
-                            switch (i)
+                            for (int i = 0; i < errorMessage.Length; i++)
                             {
-                                case 0:
-                                    errorMessage[i] = "1";
-                                    break;
-                                case 1:
-                                    errorMessage[i] = $"User {userLogin.Customer_ID} has logged in";
-                                    break;
+                                switch (i)
+                                {
+                                    case 0:
+                                        errorMessage[i] = "7";
+                                        break;
+                                    case 1:
+                                        errorMessage[i] = "You have a balance of 0!";
+                                        break;
+                                }
                             }
                         }
-                        dbCon.uspUpdateMachineCustomer(machineID, uID);        
-                        this.uID = uID;
+                        else
+                        {
+                            for (int i = 0; i < errorMessage.Length; i++)
+                            {
+                                switch (i)
+                                {
+                                    case 0:
+                                        errorMessage[i] = "1";
+                                        break;
+                                    case 1:
+                                        errorMessage[i] = $"User {userLogin.Customer_ID} has logged in";
+                                        break;
+                                }
+                            }
+                            dbCon.uspUpdateMachineCustomer(machineID, uID);
+                            this.uID = uID;
+                        }
                     }
                 }
             }
@@ -125,6 +144,22 @@ namespace Cachero_Color_Game
             else
             {
                 checker = 1;
+            }
+
+            return checker;
+        }
+
+        private int checkUserBalance(int uID) 
+        {
+            int checker = 0;
+
+            if (getBalance(uID.ToString()) <= 0)
+            {
+                checker = 1;
+            }
+            else
+            {
+                checker = 0;
             }
 
             return checker;
@@ -249,6 +284,30 @@ namespace Cachero_Color_Game
                         decimal.Parse(logTemp.Values.ElementAt(i).ElementAt(x + 7).ToString())
                     );
             }
+        }
+
+        public void noLogoutLog(int uID, decimal MCW, decimal MachineBal) 
+        {
+            DateTime timeNow = DateTime.Now;
+            dbCon.uspCreateGameLog(timeNow, uID,machineID,gameID,errorcodeID:1,$"Customer {uID} quit the application unexpectedly", MCW, MachineBal);
+        }
+
+        public void playerActiveLog(int uID) 
+        {
+            DateTime timeNow = DateTime.Now;
+            dbCon.uspCreateGameLog(timeNow,uID,machineID,gameID,5,$"Login Attempt while account is active on customer {uID}",0,getMachineBal());
+        }
+
+        public void zeroBalanceLog(int uID) 
+        {
+            DateTime timeNow = DateTime.Now;
+            dbCon.uspCreateGameLog(timeNow, uID, machineID, gameID, 3, $"Customer {uID} has a balance of zero", 0, getMachineBal());
+        }
+
+        public void userNameNotFound(string uName) 
+        {
+            DateTime timeNow = DateTime.Now;
+            dbCon.uspCreateGameLog(timeNow,1,machineID,gameID,4,$"Attempted login with non existing username {uName}",0,getMachineBal());
         }
     }
 }

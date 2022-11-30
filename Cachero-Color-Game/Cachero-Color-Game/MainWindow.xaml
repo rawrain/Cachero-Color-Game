@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Cachero_Color_Game"
         mc:Ignorable="d"
-        Title="MainWindow" Height="611" Width="800" SizeToContent="WidthAndHeight" ResizeMode="NoResize">
+        Title="MainWindow" Height="611" Width="800" SizeToContent="WidthAndHeight" ResizeMode="NoResize" Closed="mainWindow_Closed" WindowStartupLocation="CenterScreen">
     <Grid x:Name="mainGrid">
         <Grid Height="Auto" Margin="28,274,680,139" Width="Auto">
             <Rectangle x:Name="redHolRect" Fill="Red" Stroke="Black" Margin="0,0,71,0" Width="21" Height="21"/>
