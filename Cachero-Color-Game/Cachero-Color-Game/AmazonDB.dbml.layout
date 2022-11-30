@@ -1,12 +1,77 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="AmazonDB">
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11.25, 8.5" name="AmazonDB">
   <DataContextMoniker Name="/AmazonDBDataContext" />
   <nestedChildShapes>
-    <classShape Id="b83721b2-2b6a-410f-af55-943aa48b5b0d" absoluteBounds="1.25, 2.5, 2, 2.9247054036458331">
-      <DataClassMoniker Name="/AmazonDBDataContext/table_Customer" />
+    <classShape Id="19604217-8215-4d43-9346-a21ab9c68896" absoluteBounds="6.25, 1.5, 2, 1.7708968098958329">
+      <DataClassMoniker Name="/AmazonDBDataContext/table_Machine" />
       <nestedChildShapes>
-        <elementListCompartment Id="baca109d-d182-4bd0-ba36-6894b9c6ee30" absoluteBounds="1.2650000000000001, 2.96, 1.9700000000000002, 2.364705403645833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="e5b5cc1d-c6ea-420d-a921-5b33f6ef5a39" absoluteBounds="6.265, 1.96, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
+    <classShape Id="081f7b63-9319-4369-a9c5-3af8a26464b1" absoluteBounds="3.5, 1, 2, 2.9247054036458326">
+      <DataClassMoniker Name="/AmazonDBDataContext/table_Customer" />
+      <nestedChildShapes>
+        <elementListCompartment Id="b7849f68-4e9d-4421-ae52-1c5ccc24a842" absoluteBounds="3.515, 1.46, 1.9700000000000002, 2.364705403645833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="45a97219-686d-49d2-b7f0-ff0ed188673d" absoluteBounds="6.25, 5.875, 2, 1.1939925130208344">
+      <DataClassMoniker Name="/AmazonDBDataContext/table_ErrorCode" />
+      <nestedChildShapes>
+        <elementListCompartment Id="055a8268-1b3d-4de9-8668-0fb6897f29d8" absoluteBounds="6.265, 6.335, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="fb301b27-7c70-486d-92d6-0258092fd0d6" absoluteBounds="9, 1.125, 2, 2.5401025390625005">
+      <DataClassMoniker Name="/AmazonDBDataContext/table_GameLog" />
+      <nestedChildShapes>
+        <elementListCompartment Id="55966de2-5345-496a-80c1-3a374cf4d188" absoluteBounds="9.015, 1.585, 1.9700000000000002, 1.9801025390625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="2e4b9656-2911-40a6-b1bf-22f5d4e5a0bd" absoluteBounds="3.5, 5.75, 2, 1.3862939453125005">
+      <DataClassMoniker Name="/AmazonDBDataContext/table_Game" />
+      <nestedChildShapes>
+        <elementListCompartment Id="34edf202-08a0-4c9a-a015-b2a7c7fed814" absoluteBounds="3.515, 6.21, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="7b33e98b-d55a-4d67-9348-c72549659d90" absoluteBounds="0.75, 1.75, 2, 1.3862939453125003">
+      <DataClassMoniker Name="/AmazonDBDataContext/table_ID" />
+      <nestedChildShapes>
+        <elementListCompartment Id="d44f5470-c40f-48af-8f40-ae88d8c7d789" absoluteBounds="0.765, 2.21, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(5.5 : 2.38544840494792); (6.25 : 2.38544840494792)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/AmazonDBDataContext/table_Customer/table_Customer_table_Machine" />
+      <nodes>
+        <classShapeMoniker Id="081f7b63-9319-4369-a9c5-3af8a26464b1" />
+        <classShapeMoniker Id="19604217-8215-4d43-9346-a21ab9c68896" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(8.25 : 6.47199625651042); (10 : 6.47199625651042); (10 : 3.6651025390625)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/AmazonDBDataContext/table_ErrorCode/table_ErrorCode_table_GameLog" />
+      <nodes>
+        <classShapeMoniker Id="45a97219-686d-49d2-b7f0-ff0ed188673d" />
+        <classShapeMoniker Id="fb301b27-7c70-486d-92d6-0258092fd0d6" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(8.25 : 2.38544840494792); (9 : 2.38544840494792)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/AmazonDBDataContext/table_Machine/table_Machine_table_GameLog" />
+      <nodes>
+        <classShapeMoniker Id="19604217-8215-4d43-9346-a21ab9c68896" />
+        <classShapeMoniker Id="fb301b27-7c70-486d-92d6-0258092fd0d6" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(5.5 : 5.75); (5.875 : 5.375); (5.875 : 2.85942460742187); (6.25 : 2.85942460742187)]" fixedFrom="NotFixed" fixedTo="Algorithm">
+      <AssociationMoniker Name="/AmazonDBDataContext/table_Game/table_Game_table_Machine" />
+      <nodes>
+        <classShapeMoniker Id="2e4b9656-2911-40a6-b1bf-22f5d4e5a0bd" />
+        <classShapeMoniker Id="19604217-8215-4d43-9346-a21ab9c68896" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2.75 : 2.44314697265625); (3.5 : 2.44314697265625)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/AmazonDBDataContext/table_ID/table_ID_table_Customer" />
+      <nodes>
+        <classShapeMoniker Id="7b33e98b-d55a-4d67-9348-c72549659d90" />
+        <classShapeMoniker Id="081f7b63-9319-4369-a9c5-3af8a26464b1" />
+      </nodes>
+    </associationConnector>
   </nestedChildShapes>
 </ordesignerObjectsDiagram>

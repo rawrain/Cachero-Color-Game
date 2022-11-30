@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -20,20 +21,45 @@ namespace Cachero_Color_Game
     /// </summary>
     public partial class MainWindow : Window
     {
-        private AmazonDBDataContext amazonDB = new AmazonDBDataContext(Properties.Settings.Default.Group2_RoyalCasinoConnectionString);
+        private dbInteractions dbOps = new dbInteractions();
         private Label[] gameColorDice = new Label[] { }; 
         private Grid gameDiceGrid = new Grid();
         private Color[] listOfColors = new Color[6];
-        private int[] selectedColors = new int[] { };
-        private int nextcustomerID = 0;
-        private Dictionary<string, int> bettedColors =new Dictionary<string, int>();
-        private Dictionary<string, int> matchedColors = new Dictionary<string, int>();
+        private int[] selectedColors = new int[] { }; 
+        private Dictionary<string, int> bettedColors = new Dictionary<string, int>();
+        private Dictionary<string, int> matchedColors = new Dictionary<string, int>();     
         private List<string> prizeColors = new List<string>();
+        private Regex pattern = new Regex("^[0-9]+$", RegexOptions.IgnoreCase);
+        private string[] errorMessage = new string[3];
+        private logWindow lw = new logWindow();
+        private int uID = 0;
+        private decimal gameRoundWager = 0;
+        private decimal gameRoundWinnings = 0;
+        private string logComments = string.Empty;
+        private int logOutBtnCheck = 0;
 
-        public MainWindow()
+        public MainWindow(int uID)
         {
             InitializeComponent();
-            initDices();
+            initDices(); 
+            this.uID = uID;
+            DateTime timeNow = DateTime.Now;
+            logComments = $"Customer {uID} has logged In";
+            dbOps.createLog(timeNow,uID,1,logComments,gameRoundWinnings,dbOps.getMachineBal());
+            uNameLbl.Content += dbOps.getUserName(uID.ToString());
+            uBalanceLbl.Content += dbOps.getBalance(uID.ToString()).ToString();
+            playerWinningsLbl.Content = "Player Winnings: 0";
+        }
+    
+        private string formatErrMessage(string[] errMess)
+        {
+            string errMessToShow = string.Empty;
+
+            errMessToShow = "Error Code: " + errMess[0] + "\n" +
+                "Error Name: " + errMess[1] + "\n" +
+                "Error Description: " + errMess[2];
+
+            return errMessToShow;
         }
 
         private void initDices() 
@@ -88,7 +114,7 @@ namespace Cachero_Color_Game
 
         private  async void generateColor() 
         {
-            
+            confirmWagerBtn.IsEnabled = false;
             selectedColors = new int[3];
             Random random= new Random();
             int colorIndex = 0;
@@ -117,6 +143,7 @@ namespace Cachero_Color_Game
 
             getColorMatches(selectedColors);
             getWinnerColors(matchedColors);
+            confirmWagerBtn.IsEnabled = true;
 
         }
 
@@ -131,17 +158,221 @@ namespace Cachero_Color_Game
             listOfColors[5] = Color.FromRgb(255, 0, 255); // Color of Purple
         }
 
+        private string wagerAmountVerification() 
+        {
+            Dictionary<string, string> forChecking = new Dictionary<string, string>();
+
+            string redWager = redWagerTbx.Text;
+            string orangeWager = orangeWagerTbx.Text;
+            string yellowWager = yellowWagerTbx.Text;
+            string greenWager = greenWagerTbx.Text;
+            string blueWager = blueWagerTbx.Text;
+            string purpleWager = purpleWagerTbx.Text;
+            string errMessage = string.Empty;         
+
+            forChecking.Add("red", redWager);
+            forChecking.Add("orange", orangeWager);
+            forChecking.Add("yellow", yellowWager);
+            forChecking.Add("green", greenWager);
+            forChecking.Add("blue", blueWager);
+            forChecking.Add("purple", purpleWager);
+
+            for (int i = 0; i < forChecking.Count; i++) 
+            {
+                string tempVal = forChecking.Values.ElementAt(i);
+                string tempKey = forChecking.Keys.ElementAt(i);
+
+                if (!pattern.IsMatch(tempVal))
+                {
+                    errMessage += $"INVALID AMOUNT: COLOR {tempKey.ToUpper()} \n\n";
+                }
+            }
+            
+            return errMessage;
+
+        }
+
+        private string noZeroAmountVerification() 
+        {
+            int[] valuesForChecking = new int[6];
+            string errMess = string.Empty;
+            int redWager = int.Parse(redWagerTbx.Text);
+            int orangeWager = int.Parse(orangeWagerTbx.Text);
+            int yellowWager = int.Parse(yellowWagerTbx.Text);
+            int greenWager = int.Parse(greenWagerTbx.Text);
+            int blueWager = int.Parse(blueWagerTbx.Text);
+            int purpleWager = int.Parse(purpleWagerTbx.Text);
+            int zeroChecker = 0;
+
+            for (int i = 0; i < valuesForChecking.Length; i++) 
+            {
+                switch (i) 
+                {
+                    case 0:
+                        valuesForChecking[i] = redWager;
+                        break;
+                    case 1:
+                        valuesForChecking[i] = orangeWager;
+                        break;
+                    case 2:
+                        valuesForChecking[i] = yellowWager;
+                        break;
+                    case 3:
+                        valuesForChecking[i] = greenWager;
+                        break;
+                    case 4:
+                        valuesForChecking[i] = blueWager;
+                        break;
+                    case 5:
+                        valuesForChecking[i] = purpleWager;
+                        break;
+                }
+            }
+
+            for (int i = 0; i < valuesForChecking.Length; i++) 
+            {
+                if (valuesForChecking[i] < 1) 
+                {
+                    zeroChecker++;
+                }
+            }
+
+            if (zeroChecker == 6) 
+            {
+                errMess = "TOTAL WAGER CANNOT BE EQUAL TO ZERO!";
+            }
+
+            return errMess;
+        }
+
+        private string balanceWagerVerification() 
+        {
+            decimal playerBalance = decimal.Parse(uBalanceLbl.Content.ToString().Split(':')[1]);
+            int[] valuesForChecking = new int[6];
+            string errMess = string.Empty;
+            int redWager = int.Parse(redWagerTbx.Text);
+            int orangeWager = int.Parse(orangeWagerTbx.Text);
+            int yellowWager = int.Parse(yellowWagerTbx.Text);
+            int greenWager = int.Parse(greenWagerTbx.Text);
+            int blueWager = int.Parse(blueWagerTbx.Text);
+            int purpleWager = int.Parse(purpleWagerTbx.Text);
+            int totalBetChecker = 0 ;
+
+            for (int i = 0; i < valuesForChecking.Length; i++)
+            {
+                switch (i)
+                {
+                    case 0:
+                        valuesForChecking[i] = redWager;
+                        break;
+                    case 1:
+                        valuesForChecking[i] = orangeWager;
+                        break;
+                    case 2:
+                        valuesForChecking[i] = yellowWager;
+                        break;
+                    case 3:
+                        valuesForChecking[i] = greenWager;
+                        break;
+                    case 4:
+                        valuesForChecking[i] = blueWager;
+                        break;
+                    case 5:
+                        valuesForChecking[i] = purpleWager;
+                        break;
+                }
+            }
+
+            for (int i = 0; i < valuesForChecking.Length; i++)
+            {
+              totalBetChecker += valuesForChecking[i];
+            }
+
+            if (totalBetChecker > playerBalance) 
+            {
+                errMess = "INSUFFICIENT FUNDS!";
+            }
+
+            return errMess;
+        }
+
         private void confirmWagerBtn_Click(object sender, RoutedEventArgs e)
         {
+          
             var confirm = MessageBox.Show("Do you want to proceed with this action?", "Confirmation", MessageBoxButton.YesNo);
-            
+           
             if (confirm == MessageBoxResult.Yes)
             {
-                getBettedColors();
-                for (int i = 0; i < gameColorDice.Length; i++)
-                    gameColorDice[i].Background = new SolidColorBrush(Colors.Transparent);
-                addElColorList();
-                generateColor();
+                if (wagerAmountVerification() != String.Empty)
+                {
+                    for (int i = 0; i < errorMessage.Length; i++)
+                    {
+                        switch (i)
+                        {
+                            case 0:
+                                errorMessage[i] = "E1";
+                                break;
+                            case 1:
+                                errorMessage[i] = "INPUT ERROR!";
+                                break;
+                            case 2:
+                                errorMessage[i] = $"\n\n{wagerAmountVerification()}";
+                                break;
+                        }
+                    }
+
+                    MessageBox.Show(formatErrMessage(errorMessage));
+                }
+                else if (noZeroAmountVerification() != String.Empty)
+                {
+                    for (int i = 0; i < errorMessage.Length; i++)
+                    {
+                        switch (i)
+                        {
+                            case 0:
+                                errorMessage[i] = "E1";
+                                break;
+                            case 1:
+                                errorMessage[i] = "INPUT ERROR!";
+                                break;
+                            case 2:
+                                errorMessage[i] = $"{noZeroAmountVerification()}";
+                                break;
+                        }
+                    }
+
+                    MessageBox.Show(formatErrMessage(errorMessage));
+                }
+                else if (balanceWagerVerification() != String.Empty) 
+                {
+                    for (int i = 0; i < errorMessage.Length; i++)
+                    {
+                        switch (i)
+                        {
+                            case 0:
+                                errorMessage[i] = "E1";
+                                break;
+                            case 1:
+                                errorMessage[i] = "INPUT ERROR!";
+                                break;
+                            case 2:
+                                errorMessage[i] = $"{balanceWagerVerification()}";
+                                break;
+                        }
+                    }
+                    DateTime timeNow = DateTime.Now;
+                    logComments = $"Customer {uID} Balance is insufficient!";
+                    dbOps.createLog(timeNow, uID, 2, logComments, gameRoundWinnings, dbOps.getMachineBal());
+                    MessageBox.Show(formatErrMessage(errorMessage));
+                }
+                else
+                {
+                    getBettedColors();
+                    for (int i = 0; i < gameColorDice.Length; i++)
+                        gameColorDice[i].Background = new SolidColorBrush(Colors.Transparent);
+                    addElColorList();
+                    generateColor();
+                }              
             }
             else
             {
@@ -180,17 +411,19 @@ namespace Cachero_Color_Game
                 }
             }
 
+            int counter = 0;
             for (int i = 0; i < prizeColors.Count; i++) 
             {
                 for (int x = 0; x < bettedColors.Count; x++) 
                 {
                     if (prizeColors.ElementAt(i) == bettedColors.Keys.ElementAt(x)) 
                     {
-                        string keyTemp = $"Key{x+1}:{bettedColors.Keys.ElementAt(x)}";
+                        string keyTemp = $"Key{counter++}:{bettedColors.Keys.ElementAt(x)}";
                         matchedColors.Add(keyTemp, bettedColors.Values.ElementAt(x));
                         keyTemp = string.Empty;
                     }
                 }
+               
             }
         }
 
@@ -203,6 +436,8 @@ namespace Cachero_Color_Game
             int greenWager = int.Parse(greenWagerTbx.Text);
             int blueWager = int.Parse(blueWagerTbx.Text);
             int purpleWager = int.Parse(purpleWagerTbx.Text);
+            int totalWagerValue = 0;
+            decimal playerBalance = decimal.Parse(uBalanceLbl.Content.ToString().Split(':')[1]);
 
             if (redWager != 0 && redWager > 0) 
             {
@@ -228,53 +463,17 @@ namespace Cachero_Color_Game
             {
                 bettedColors.Add("purple", purpleWager);
             }
+
+            for (int i = 0; i < bettedColors.Count; i++) 
+            {
+                totalWagerValue += bettedColors.Values.ElementAt(i);
+            }
+            DateTime timeNow = DateTime.Now;
+            uBalanceLbl.Content = $"Player Balance : {playerBalance - totalWagerValue}";
+            gameRoundWager += totalWagerValue;
+            logComments = $"Customer {uID} betted {totalWagerValue}";
+            dbOps.createLog(timeNow, uID, 1, logComments, gameRoundWinnings, dbOps.getMachineBal());
           
-        }
-
-        private void login()
-        {
-            var allCustomers = (from b in amazonDB.table_Customers
-                                where b.Customer_Username == txtloginUsername.Text
-                                select b).ToList();
-
-            var customerLogin = (from a in amazonDB.table_Customers
-                                 where a.Customer_Username == txtloginUsername.Text
-                                 select a).FirstOrDefault();
-
-            string[] customers = new string[nextcustomerID + 1];
-            string password = "";
-
-            int y = 0;
-
-            foreach (var customer in allCustomers)
-            {
-                customers[y] = customer.Customer_Username.ToString();
-                y++;
-            }
-
-            if (customers.Contains(txtloginUsername.Text))
-            {
-                lblloginstatus.Content = "Username Found";
-                password = customerLogin.Customer_Password.ToString();
-
-                if (txtloginPassword.Password == password)
-                {
-                    lblloginstatus.Content = "Login Success";
-                }
-                else
-                {
-                    lblloginstatus.Content = "Incorrect Password";
-                }
-            }
-            else
-            {
-                lblloginstatus.Content = "Username Not Found";
-            }
-        }
-
-        private void lginBtn_Click(object sender, RoutedEventArgs e)
-        {
-            login();
         }
 
         private void getWinnerColors(Dictionary<string, int> matchedColors) 
@@ -285,6 +484,9 @@ namespace Cachero_Color_Game
             //green = x4
             //blue = x3
             //purple = x3
+            DateTime timeNow = DateTime.Now;
+
+            decimal playerBalance = decimal.Parse(uBalanceLbl.Content.ToString().Split(':')[1]);
 
             int totalWinnings = 0;
 
@@ -313,8 +515,51 @@ namespace Cachero_Color_Game
                 }
 
             }
+            gameRoundWinnings += totalWinnings;
+            logComments = $"Customer{uID} won {totalWinnings}";
+            playerWinningsLbl.Content = $"Player Winnings : {gameRoundWinnings}" ;
+            dbOps.createLog(timeNow,uID,1,logComments,gameRoundWinnings,dbOps.getMachineBal());
+        }
 
-            MessageBox.Show($"Your Total winnings are: {totalWinnings}");
+        private void logOutBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+            decimal newMachineBal = 0;
+            DateTime timeNow = DateTime.Now;
+            logOutBtnCheck = 1;
+            logComments = $"Customer {uID} has logged out";
+            dbOps.createLog(timeNow,uID,1,logComments,gameRoundWinnings,dbOps.getMachineBal());
+            newMachineBal = dbOps.getMachineBal() + gameRoundWager;
+            dbOps.updateCurrentMachineWinnings(gameRoundWinnings);
+            dbOps.updatePlayerCurrentBalance(uID, gameRoundWager);
+            dbOps.updateMachineCurrentBalance(newMachineBal);
+            dbOps.pushLogToDB();
+            uBalanceLbl.Content = "Player Balance: ";
+            uNameLbl.Content = "Player Name: ";
+            dbOps.changeMachineCustomerLogOut();
+            logWindow lw = new logWindow();
+            this.Close();
+            lw.Show();
+        }
+
+        private void mainWindow_Closed(object sender, EventArgs e)
+        {
+            if (logOutBtnCheck != 1) 
+            {
+                decimal newMachineBal = 0;
+                DateTime timeNow = DateTime.Now;              
+                newMachineBal = dbOps.getMachineBal() + gameRoundWager;
+                dbOps.pushLogToDB();
+                dbOps.noLogoutLog(uID,gameRoundWinnings,newMachineBal);
+                dbOps.updateCurrentMachineWinnings(gameRoundWinnings);
+                dbOps.updatePlayerCurrentBalance(uID, gameRoundWager);
+                dbOps.updateMachineCurrentBalance(newMachineBal);   
+                uBalanceLbl.Content = "Player Balance: ";
+                uNameLbl.Content = "Player Name: ";
+                dbOps.changeMachineCustomerLogOut();
+                logWindow lw = new logWindow();
+                Environment.Exit(0);
+            }
         }
     }
 }
