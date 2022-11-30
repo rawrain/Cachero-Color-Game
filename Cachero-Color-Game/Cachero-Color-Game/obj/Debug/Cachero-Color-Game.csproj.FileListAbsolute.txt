@@ -82,3 +82,5 @@ C:\Users\julet\Desktop\Workspace\c# Apps\Cachero-Color-Game-Julette-Version\Cach
 C:\Users\julet\Desktop\Workspace\c# Apps\Cachero-Color-Game-Julette-Version\Cachero-Color-Game\Cachero-Color-Game\obj\Debug\Cachero-Color-Game.csproj.CoreCompileInputs.cache
 C:\Users\julet\Desktop\Workspace\c# Apps\Cachero-Color-Game-Julette-Version\Cachero-Color-Game\Cachero-Color-Game\obj\Debug\Cachero-Color-Game.exe
 C:\Users\julet\Desktop\Workspace\c# Apps\Cachero-Color-Game-Julette-Version\Cachero-Color-Game\Cachero-Color-Game\obj\Debug\Cachero-Color-Game.pdb
+C:\Users\Admin\Desktop\Cachero-Color-Game\Cachero-Color-Game\Cachero-Color-Game\obj\Debug\logWindow.g.cs
+C:\Users\Admin\Desktop\Cachero-Color-Game\Cachero-Color-Game\Cachero-Color-Game\obj\Debug\logWindow.baml

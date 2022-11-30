@@ -119,5 +119,62 @@
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="BG.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Dark Blue Futuristic Neon NFT Design YouTube Channel Art.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Final logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Accnt login crop.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Accnt login uncrop %281%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Accnt login uncrop.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="username crop.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="pass crop.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="btn bg.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="PAss %281%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Player Name.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Wager.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pbalance.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="PWinnings.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="half.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="4x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="3x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="2x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="1x.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

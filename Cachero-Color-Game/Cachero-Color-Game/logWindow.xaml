@@ -5,14 +5,24 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Cachero_Color_Game"
         mc:Ignorable="d"
-        Title="logWindow" Height="229" Width="458" Activated="loginWindow_Activated">
+        Title="logWindow" Height="456" Width="839" Activated="loginWindow_Activated" WindowStartupLocation="CenterScreen">
+    <Window.Background>
+        <ImageBrush ImageSource="/BG.png"/>
+    </Window.Background>
     <Grid>
-        <TextBox x:Name="uNameTbx" HorizontalAlignment="Left" Margin="93,45,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="316"/>
-        <PasswordBox x:Name="uPassTbx" HorizontalAlignment="Left" Margin="94,80,0,0" VerticalAlignment="Top" Width="315"/>
-        <Label x:Name="uNameLbl" Content="Username" HorizontalAlignment="Left" Margin="25,41,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="uPassLbl" Content="Password" HorizontalAlignment="Left" Margin="25,76,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="logInBtn" Content="Log In" HorizontalAlignment="Left" Margin="346,150,0,0" VerticalAlignment="Top" Width="63" Click="logInBtn_Click"/>
+        <TextBox x:Name="uNameTbx" HorizontalAlignment="Left" Margin="581,171,0,0" TextWrapping="Wrap" VerticalContentAlignment="Center" Text="" VerticalAlignment="Top" Width="196" Height="33" Foreground="#FF9543CF" FontFamily="Franklin Gothic Medium" FontSize="20"/>
+        <PasswordBox x:Name="uPassTbx" HorizontalAlignment="Left" Margin="581,230,0,0" VerticalAlignment="Top" Width="196" Height="33" Foreground="#FF9543CF" FontFamily="Franklin Gothic Medium" FontSize="20"/>
+        <Button x:Name="logInBtn" Content="Log In" HorizontalAlignment="Left" Margin="650,281,0,0" VerticalAlignment="Top" Width="134" Click="logInBtn_Click" Height="52" FontFamily="Franklin Gothic Demi Cond" FontSize="15" FontWeight="Bold" BorderBrush="{x:Null}" Foreground="#FF9543CF">
+            <Button.Background>
+                <ImageBrush ImageSource="/btn bg.png"/>
+            </Button.Background>
+        </Button>
+
         <Label x:Name="userIDHol" Visibility="Hidden" Content="" HorizontalAlignment="Left" Margin="25,10,0,0" VerticalAlignment="Top"/>
+        <Image HorizontalAlignment="Left" Height="276" Margin="39,74,0,0" VerticalAlignment="Top" Width="366" Source="/Final logo.png"/>
+        <Image x:Name="accnt_lgin" HorizontalAlignment="Left" Height="48" Margin="448,97,0,0" VerticalAlignment="Top" Width="302" Source="/Accnt login crop.png"/>
+        <Image HorizontalAlignment="Left" Height="37" Margin="425,169,0,0" VerticalAlignment="Top" Width="134" Source="/username crop.png"/>
+        <Image HorizontalAlignment="Left" Height="38" Margin="425,225,0,0" VerticalAlignment="Top" Width="142" Source="/pass crop.png"/>
 
     </Grid>
 </Window>
