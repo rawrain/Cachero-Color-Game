@@ -48,6 +48,7 @@ namespace Cachero_Color_Game
             dbOps.createLog(timeNow,uID,1,logComments,gameRoundWinnings,dbOps.getMachineBal());
             uNameLbl.Content += dbOps.getUserName(uID.ToString());
             uBalanceLbl.Content += dbOps.getBalance(uID.ToString()).ToString();
+            playerWinningsLbl.Content = "Player Winnings: 0";
         }
     
         private string formatErrMessage(string[] errMess)
@@ -516,6 +517,7 @@ namespace Cachero_Color_Game
             }
             gameRoundWinnings += totalWinnings;
             logComments = $"Customer{uID} won {totalWinnings}";
+            playerWinningsLbl.Content = $"Player Winnings : {gameRoundWinnings}" ;
             dbOps.createLog(timeNow,uID,1,logComments,gameRoundWinnings,dbOps.getMachineBal());
         }
 

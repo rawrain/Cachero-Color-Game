@@ -33,9 +33,10 @@
             <Button x:Name="confirmWagerBtn" Content="Place Wager" HorizontalAlignment="Left" Margin="0,152,0,0" VerticalAlignment="Top" Width="83" Click="confirmWagerBtn_Click"/>
         </Grid>
         <Label x:Name="wagerHeaderLbl" Content="Place Wager Here:" HorizontalAlignment="Left" VerticalAlignment="Top" Width="119" Margin="24,304,0,0"/>
-        <Label x:Name="uNameLbl" Content="Player Name: " HorizontalAlignment="Left" Margin="24,226,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="uBalanceLbl" Content="Player Balance: " HorizontalAlignment="Left" Margin="24,257,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="uNameLbl" Content="Player Name: " HorizontalAlignment="Left" Margin="28,177,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="uBalanceLbl" Content="Player Balance: " HorizontalAlignment="Left" Margin="28,208,0,0" VerticalAlignment="Top"/>
         <Button x:Name="logOutBtn" Content="Log Out" HorizontalAlignment="Left" Margin="28,24,0,0" VerticalAlignment="Top" Width="88" Click="logOutBtn_Click"/>
+        <Label x:Name="playerWinningsLbl" Content="Player Winnings: 0 " HorizontalAlignment="Left" Margin="28,243,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>
